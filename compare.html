@@ -67,6 +67,17 @@ tr:hover .mv,.mv:focus-within{opacity:1}
 .slot:hover{border-color:var(--teal);background:#F1F8F6;color:var(--ink)}
 .slot .plus{width:36px;height:36px;border-radius:50%;background:var(--sand);display:grid;place-items:center;color:var(--ink)}
 .slot .plus svg{width:16px;height:16px}
+.tray{margin-top:22px}
+.tray[hidden]{display:none}
+.tray p{font-size:.875rem;color:var(--mute);margin-bottom:10px}
+.tray-l{display:flex;flex-wrap:wrap;gap:8px}
+.tchip{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 14px 0 6px;border-radius:99px;border:1px solid var(--line-strong);background:#fff;font-size:.875rem;font-weight:500;cursor:grab;user-select:none;box-shadow:var(--inset-hi);transition:border-color var(--duration-fast),box-shadow var(--duration-fast)}
+.tchip:hover{border-color:var(--teal)}
+.tchip:active{cursor:grabbing}
+.tchip:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.tchip.drag{opacity:.45}
+.dragging .slot{border-color:var(--teal);background:#F1F8F6;color:var(--ink)}
+.cwrap.drop{outline:2px dashed var(--teal);outline-offset:4px}
 .yn{display:inline-flex;align-items:center;gap:8px}
 .yn svg{width:16px;height:16px;flex:none}
 .yn.y svg{color:var(--teal)}.yn.n svg{color:#8f8c85}
@@ -135,6 +146,7 @@ dialog.pick[open]{animation:dlg .3s var(--ease-out-expo)}
   <div class="mtabs" id="mtabs" role="tablist" aria-label="Tool to show"></div>
   <div class="cwrap"><table class="cmpt" id="tbl" data-m="0"></table></div>
   <p class="hint">Swipe the table left or right to switch tools.</p>
+  <section class="tray" id="tray" aria-label="Tools you can add" hidden></section>
 </div></main>
 
 <dialog class="pick" id="pk" aria-label="Add a tool to compare">
@@ -149,7 +161,7 @@ dialog.pick[open]{animation:dlg .3s var(--ease-out-expo)}
 
 <script src="shared.js"></script>
 <script>
-(()=>{
+AF.ready.then(()=>{
 'use strict';
 const {$,$$,esc,CATS,T,byId,lg,stars,isFree,priceNum,startLabel,fmt,toolUrl,cmpUrl,rank,toast}=AF;
 
@@ -214,7 +226,7 @@ function render(){
    `<th class="c${i}${t.id===justAdded?' enter':''}" scope="col"><div class="tc"><button class="rm" type="button" data-rm="${t.id}" aria-label="Remove ${esc(t.n)}">${X}</button>
      <a class="tc-top" href="${toolUrl(t.id)}">${lg(t)}<span><b>${esc(t.n)}</b><small>${esc(CATS[t.cat].n)}</small></span></a>
      <div class="meta">${stars(t.r,1)}<span class="mono" style="font-size:.8125rem;font-weight:400">${t.r}</span></div></div></th>`:
-   `<th class="c${i} empty-h" scope="col"><button class="slot" type="button" data-add><span class="plus">${PLUS}</span>Click + to add a tool</button></th>`).join('')}</tr></thead>`;
+   `<th class="c${i} empty-h" scope="col"><button class="slot" type="button" data-add><span class="plus">${PLUS}</span>Click + or drop a tool here</button></th>`).join('')}</tr></thead>`;
 
   const groups=[...new Set(order.map(k=>rowOf(k).g))];
   const body=groups.map(g=>{
@@ -235,6 +247,11 @@ function render(){
   if(active>=tools.length) active=0;
   tbl.dataset.m=active;
   $('#mtabs').innerHTML=tools.map((t,i)=>`<button class="chip" role="tab" aria-selected="${i===active}" data-m="${i}" type="button">${esc(t.n)}</button>`).join('')+(tools.length<3?`<button class="chip" type="button" data-add>Add tool</button>`:'');
+
+  /* tray of tools to drag into an empty slot (clicking one adds it too) */
+  const tray=$('#tray'), first=tools[0];
+  tray.hidden=tools.length>=3;
+  if(!tray.hidden) tray.innerHTML=`<p>Drag a tool onto the table, or click it to add.</p><div class="tray-l">${T.filter(t=>!ids.includes(t.id)).sort((a,b)=>(b.cat===first.cat)-(a.cat===first.cat)||b.r-a.r).slice(0,6).map(t=>`<div class="tchip" role="button" tabindex="0" draggable="true" data-id="${t.id}">${lg(t,'lg-s')}${esc(t.n)}</div>`).join('')}</div>`;
 
   document.title=`Compare ${tools.map(t=>t.n).join(' vs ')} | AutomationFindr`;
   history.replaceState(null,'',cmpUrl(ids));
@@ -257,6 +274,16 @@ $('#mtabs').addEventListener('click',e=>{ const b=e.target.closest('[data-m]'); 
 $('#diffOnly').addEventListener('change',e=>{ hideSame=e.target.checked; render(); });
 $('#resetRows').addEventListener('click',()=>{ order=DEFAULT_ORDER.slice(); saveOrder(); render(); });
 $('#copy').addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText(location.href); toast('Link copied. Anyone can open this exact comparison.'); }catch(e){ toast('Copy failed. The address bar has the link.'); } });
+
+/* drag and drop: tray chips onto the table. Click or Enter on a chip is the non-drag way. */
+const tray=$('#tray'), cw=$('.cwrap'), canAdd=id=>ids.length<3&&byId(id)&&!ids.includes(id);
+tray.addEventListener('dragstart',e=>{ const c=e.target.closest('[data-id]'); if(!c) return; e.dataTransfer.setData('text/plain',c.dataset.id); e.dataTransfer.effectAllowed='copy'; c.classList.add('drag'); document.body.classList.add('dragging'); });
+tray.addEventListener('dragend',e=>{ e.target.classList?.remove('drag'); document.body.classList.remove('dragging'); cw.classList.remove('drop'); });
+tray.addEventListener('click',e=>{ const c=e.target.closest('[data-id]'); if(c&&canAdd(c.dataset.id)) choose(c.dataset.id); });
+tray.addEventListener('keydown',e=>{ const c=e.target.closest('[data-id]'); if(c&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); if(canAdd(c.dataset.id)) choose(c.dataset.id); } });
+cw.addEventListener('dragover',e=>{ if(ids.length<3&&e.dataTransfer.types.includes('text/plain')){ e.preventDefault(); e.dataTransfer.dropEffect='copy'; cw.classList.add('drop'); } });
+cw.addEventListener('dragleave',e=>{ if(!cw.contains(e.relatedTarget)) cw.classList.remove('drop'); });
+cw.addEventListener('drop',e=>{ e.preventDefault(); cw.classList.remove('drop'); document.body.classList.remove('dragging'); const id=e.dataTransfer.getData('text/plain'); if(canAdd(id)) choose(id); });
 
 /* swipe between tools on touch screens */
 let sx=null;
@@ -296,7 +323,7 @@ pk.addEventListener('click',e=>{ if(e.target===pk) pk.close(); });
 pk.addEventListener('close',()=>{ if(opener&&document.contains(opener)) opener.focus({preventScroll:true}); });
 
 render();
-})();
+});
 </script>
 </body>
 </html>

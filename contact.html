@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | AutomationFindr</title>
+<meta name="description" content="Report a wrong price, ask about a listing, or just say hello.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.sub-card{padding:clamp(20px,3vw,32px);border-radius:24px;border:1px solid var(--line);background:var(--white);box-shadow:var(--inset-hi),var(--shadow-1);max-width:var(--max-width-narrow)}
+.sub-ok h2{font-size:clamp(1.8rem,3.4vw,2.4rem);margin-bottom:10px}
+.sub-ok p{color:var(--mute);margin-bottom:22px}
+</style>
+</head>
+<body data-page="contact">
+<main id="main" class="page"><div class="wrap">
+  <header class="ph">
+    <h1>Contact</h1>
+    <p>Wrong price, dead link, a listing you want changed, or a question. Write to us here and a person reads it.</p>
+  </header>
+
+  <div class="sub-card">
+    <form class="fm" id="cform">
+      <div class="fm-2">
+        <div class="fld"><label for="c-n">Your name</label><input id="c-n" name="name" required maxlength="80" autocomplete="name"></div>
+        <div class="fld"><label for="c-e">Your email</label><input id="c-e" name="email" type="email" required autocomplete="email" placeholder="your@email.com"></div>
+      </div>
+      <div class="fld"><label for="c-t">What is it about?</label>
+        <select id="c-t" name="topic" required>
+          <option value="">Choose…</option>
+          <option>A wrong price or detail</option>
+          <option>Change or remove a listing</option>
+          <option>A question about the site</option>
+          <option>Press or partnerships</option>
+          <option>Something else</option>
+        </select></div>
+      <div class="fld"><label for="c-m">Message</label><textarea id="c-m" name="message" required minlength="10" maxlength="2000" placeholder="If it's about a tool, say which one and what you saw."></textarea><small>We only use your email to reply. It is never published.</small></div>
+      <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="fm-act"><button class="btn" type="submit">Send message</button><p class="fstat" id="cstat" role="status" aria-live="polite"></p></div>
+    </form>
+    <div class="sub-ok" id="ok" role="status" hidden>
+      <h2>Message sent. Thank you.</h2>
+      <p>We read everything. If you asked for a reply, you'll hear from us at the email you gave.</p>
+      <a class="btn ghost" href="index.html">Back to the directory</a>
+    </div>
+  </div>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+AF.ready.then(()=>{
+'use strict';
+const {$}=AF;
+const form=$('#cform'), stat=$('#cstat'), btn=$('button[type=submit]',form), ok=$('#ok');
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!form.reportValidity()) return;
+  btn.disabled=true; stat.className='fstat'; stat.textContent='Sending…';
+  try{ await AF.submitForm('contact',form); }
+  catch(err){ btn.disabled=false; stat.className='fstat err'; stat.textContent=AF.failMsg(err); return; }
+  form.hidden=true; ok.hidden=false;
+});
+});
+</script>
+</body>
+</html>

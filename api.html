@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API docs | AutomationFindr</title>
+<meta name="description" content="The AutomationFindr directory as one JSON file: fields, an example, and what to expect.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.doc{max-width:860px}
+.doc>section+section{margin-top:clamp(36px,5vw,56px)}
+.doc h2{font-size:clamp(1.7rem,3vw,2.2rem);line-height:1.15;margin-bottom:12px}
+.doc p{color:#3a3a3a;max-width:64ch}
+.doc p+p,.doc p+pre,.doc pre+p{margin-top:12px}
+pre{margin:0;padding:16px 18px;border-radius:14px;background:var(--ink);color:#F2F0EB;font:400 .8125rem/1.6 var(--mono);overflow-x:auto;tab-size:2}
+.ep{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 16px;border-radius:14px;background:var(--white);border:1px solid var(--line);box-shadow:var(--inset-hi)}
+.ep b{font:500 .75rem var(--mono);padding:4px 8px;border-radius:6px;background:#E6F4F1;color:#0B5A53}
+.ep code{font:400 .875rem var(--mono);word-break:break-all}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-weight:600;background:var(--sand);white-space:nowrap}
+td:first-child{font-family:var(--mono);font-size:.8125rem;white-space:nowrap}
+td:nth-child(2){font-family:var(--mono);font-size:.8125rem;color:var(--mute);white-space:nowrap}
+.try{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+#out{max-height:320px}
+</style>
+</head>
+<body data-page="api">
+<main id="main" class="page"><div class="wrap doc">
+  <header class="ph">
+    <h1>API docs</h1>
+    <p>There is no server to call. The whole directory is one JSON file, and the site itself reads it. You can read it too.</p>
+  </header>
+
+  <section>
+    <h2>Endpoint</h2>
+    <div class="ep"><b>GET</b><code id="url">data/tools.json</code></div>
+    <p>It returns an array of tool objects. No key, no auth, no query parameters. Filter and sort in your own code.</p>
+  </section>
+
+  <section>
+    <h2>Try it</h2>
+    <div class="try"><button class="btn" type="button" id="go">Fetch the file</button><span class="meta" id="info" role="status" aria-live="polite"></span></div>
+    <pre id="out" tabindex="0" aria-label="Sample response">Press the button to load the first tool.</pre>
+  </section>
+
+  <section>
+    <h2>Use it</h2>
+    <pre id="snip" tabindex="0"></pre>
+  </section>
+
+  <section>
+    <h2>Fields</h2>
+    <div class="tw"><table>
+      <thead><tr><th scope="col">Field</th><th scope="col">Type</th><th scope="col">Meaning</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+    <p class="meta" style="margin-top:12px">A tier in <code class="code-i">pricing.tiers</code> is <code class="code-i">{n, p, d}</code>: plan name, price as the vendor shows it, and a short note.</p>
+  </section>
+
+  <section>
+    <h2>What to expect</h2>
+    <ul class="prose" style="padding-left:1.3em;list-style:disc">
+      <li>It is read-only and it is a static file. There are no rate limits because there is no server logic, and no uptime promise either.</li>
+      <li>Fields can change. Look at the <a href="changelog.html" style="color:var(--teal);text-decoration:underline">changelog</a> when something breaks.</li>
+      <li>Reading it from another website needs the host to allow cross-origin requests. If your fetch is blocked, download the file and serve your own copy.</li>
+      <li>Prices are only as fresh as <code class="code-i">pricing.verified</code>. Where it is <code class="code-i">null</code>, we could not confirm the number on the vendor's page.</li>
+      <li>Please credit AutomationFindr and link back. See the <a href="terms.html" style="color:var(--teal);text-decoration:underline">terms</a>.</li>
+    </ul>
+  </section>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+(()=>{
+'use strict';
+const {$,esc}=AF;
+const FIELDS=[
+ ['id','string','Short slug, unique. Used in URLs, such as tool.html?id=n8n.'],
+ ['n','string','Display name.'],
+ ['l','string','Monogram shown in place of a logo.'],
+ ['c','string','Brand color for the monogram, as a hex value.'],
+ ['cat','string','Top-level category key: workflow, ai, email, crm, devops, data, marketing, finance or hr.'],
+ ['sub','string[]','Finer categories the tool also belongs to, such as ipaas, selfhost or cold. 39 keys; the site lists them under each group.'],
+ ['d','string','One-line description.'],
+ ['tg','string[]','Short tags.'],
+ ['k','string','Search keywords, used by the on-site search.'],
+ ['p','string','Price summary, such as "Freemium" or "From $19.99/mo".'],
+ ['url','string','The vendor’s official site.'],
+ ['pricing','object','{tiers, verified, src, note}. verified is a YYYY-MM-DD date or null; src is the vendor page we used; note is a caveat in plain words.'],
+ ['f','number','Year, as recorded in our data.'],
+ ['a','number','Days since the tool was added, counted when the file was last generated.'],
+ ['fl','string[]','Flags: sh self-hosted, api has an API, wh webhooks, os open source, sso single sign-on.'],
+ ['dm','string','Extra platforms: d for desktop app, m for mobile app. Empty for web only.'],
+ ['best / not','string','Who it suits and who it does not. Editorial.'],
+ ['love / gripe','string[]','What people tend to like and dislike. Editorial notes, not a hands-on test.'],
+ ['uniq','string','What sets it apart.'],
+ ['int','string[]','Example integrations.'],
+ ['r','number','Rating out of 5. Illustrative for now. Do not treat it as a real score.'],
+ ['rv','number','Review count. Illustrative for now.']
+];
+$('#rows').innerHTML=FIELDS.map(([f,t,m])=>`<tr><td>${esc(f)}</td><td>${esc(t)}</td><td>${esc(m)}</td></tr>`).join('');
+
+const abs=new URL('data/tools.json',location.href).href;
+$('#url').textContent=abs;
+$('#snip').textContent=`// browser or Node 18+
+const tools = await fetch("${abs}").then(r => r.json());
+
+// self-hostable tools with a verified price
+const picks = tools.filter(t => t.fl.includes("sh") && t.pricing.verified);
+console.log(picks.map(t => t.n));
+
+// or from a terminal
+// curl -s ${abs} | jq '.[0].pricing'`;
+
+$('#go').addEventListener('click',async()=>{
+  const info=$('#info'), out=$('#out'); info.textContent='Loading…';
+  try{
+    const r=await fetch(abs); if(!r.ok) throw new Error(r.status);
+    const d=await r.json();
+    info.textContent=`${d.length} tools, ${(JSON.stringify(d).length/1024).toFixed(0)} KB. Showing the first one.`;
+    out.textContent=JSON.stringify(d[0],null,2);
+  }catch(e){ info.textContent='Couldn’t load the file. Try again.'; }
+});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- A host serves this file for any unknown URL, even a deep one like /a/b/c.
+     Without <base>, "shared.css" would resolve to /a/b/shared.css and the page would break.
+     This assumes the site is deployed at the domain root; if it goes under a subpath, change href to that path. -->
+<base href="/">
+<title>Page not found | AutomationFindr</title>
+<meta name="description" content="We couldn't find that page.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.nf{max-width:760px;margin-inline:auto;text-align:center}
+.nf h1{font-size:clamp(2.4rem,6vw,4.25rem);line-height:1.02;letter-spacing:-.03em}
+.nf>p{margin:14px auto 0;color:var(--mute);font-size:1.0625rem;max-width:44ch}
+/* the flow: three steps joined by two links; the second link is broken until you retry */
+.flow{display:flex;align-items:center;justify-content:center;margin:clamp(36px,6vw,56px) 0 20px}
+.node{position:relative;flex:none;display:grid;gap:2px;justify-items:center;width:clamp(84px,18vw,116px);padding:14px 8px;border-radius:16px;background:var(--white);border:1px solid var(--line);box-shadow:var(--inset-hi),var(--shadow-1);transition:border-color var(--duration-normal),background var(--duration-normal)}
+.node b{font:500 .75rem var(--mono);color:var(--mute)}
+.node span{font-weight:600;font-size:.9375rem}
+.node i{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:600 .75rem/1 var(--mono);font-style:normal;background:#FEE2E2;color:#9B1C1C;border:1px solid #FCA5A5}
+.node.done{border-color:var(--teal);background:#F2FAF8}
+.node.done i{background:#CCFBF1;color:#0B5A53;border-color:#5EEAD4}
+.link2{position:relative;flex:1 1 40px;max-width:130px;height:44px;display:grid;place-items:center}
+.link2::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--teal);transform-origin:left;transform:scaleX(1)}
+.link2.bad::before{background:repeating-linear-gradient(90deg,var(--line-strong) 0 6px,transparent 6px 12px);transform:scaleX(1)}
+.link2.fix::before{background:var(--teal);animation:draw var(--duration-slow) var(--ease-out-expo) forwards}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.pulse{position:absolute;left:0;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--amber);opacity:0}
+.go .pulse{animation:travel .8s var(--ease-out-expo) forwards}
+@keyframes travel{0%{left:0;opacity:1}100%{left:100%;opacity:0}}
+.retry{position:relative;z-index:1;height:38px;padding:0 14px;border-radius:99px;border:1px solid var(--line-strong);background:var(--white);font:500 .8125rem var(--sans);box-shadow:var(--inset-hi);transition:transform var(--duration-normal) var(--ease-out-expo),border-color var(--duration-fast)}
+.retry:hover{transform:scale(1.06);border-color:var(--teal)}
+.nf-s{min-height:1.6em;color:var(--mute);font-size:.9375rem}
+.nf-a{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+@media (max-width:480px){.node span{font-size:.8125rem}.retry{padding:0 10px}}
+</style>
+</head>
+<body data-page="404">
+<main id="main" class="page"><div class="wrap nf">
+  <h1>This step failed.</h1>
+  <p>We couldn't find the page you asked for. The link may be old, or mistyped.</p>
+
+  <div class="flow" id="flow">
+    <div class="node done" id="n1"><b>1</b><span>Your click</span></div>
+    <div class="link2"><span class="pulse"></span></div>
+    <div class="node done" id="n2"><b>2</b><span>The link</span></div>
+    <div class="link2 bad" id="l2"><span class="pulse"></span><button class="retry" id="retry" type="button">Retry step</button></div>
+    <div class="node" id="n3"><i aria-hidden="true">!</i><b>3</b><span>The page</span></div>
+  </div>
+  <p class="nf-s" id="nfs" role="status" aria-live="polite">Step 3 failed: page not found.</p>
+
+  <div class="nf-a">
+    <a class="btn" href="index.html">Go to the home page</a>
+    <a class="btn ghost" href="category.html">Browse all tools</a>
+    <a class="btn ghost" href="collections.html">See collections</a>
+  </div>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s), l2=$('#l2'), n3=$('#n3'), s=$('#nfs'), b=$('#retry');
+b.addEventListener('click',()=>{
+  b.hidden=true; l2.classList.remove('bad'); l2.classList.add('fix');
+  l2.parentNode.classList.add('go');
+  n3.querySelector('i').remove(); n3.classList.add('done');
+  s.textContent='The link works again, but the page was never here. Pick where to go next.';
+});
+})();
+</script>
+</body>
+</html>

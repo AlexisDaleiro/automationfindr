@@ -13,75 +13,62 @@ const hash=s=>{let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul
 /* ---------- data ---------- */
 const ic=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const CATS={
- workflow:{n:'Workflow & No-Code',c:'#0F766E',ct:142,i:ic('<circle class="f" cx="5" cy="6" r="2.6"/><circle class="f" cx="5" cy="18" r="2.6"/><circle class="f" cx="19" cy="12" r="2.6"/><path d="M7.6 6h3.4c3.2 0 3.2 6 6.4 6M7.6 18H11c3.2 0 3.2-6 6.4-6"/>')},
- ai:{n:'AI Agents',c:'#7C3AED',ct:118,i:ic('<path class="f" d="M10.5 3.5l1.9 5.1 5.1 1.9-5.1 1.9-1.9 5.1-1.9-5.1-5.1-1.9 5.1-1.9z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>')},
- email:{n:'Email & Outreach',c:'#B45309',ct:96,i:ic('<rect class="f" x="3" y="5.5" width="18" height="13" rx="3"/><path d="M4 8l8 5.5L20 8"/>')},
- crm:{n:'CRM & Sales',c:'#BE3A5C',ct:87,i:ic('<circle class="f" cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c0-3.3 2.4-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M18 9v7M21 12v4"/>')},
- devops:{n:'DevOps',c:'#3B6BA5',ct:104,i:ic('<rect class="f" x="3" y="4.5" width="18" height="15" rx="3"/><path d="M7.5 10l3 2.2-3 2.2M13 15h3.5"/>')},
- data:{n:'Data & ETL',c:'#4D7C0F',ct:91,i:ic('<ellipse class="f" cx="12" cy="6" rx="7" ry="2.8"/><path d="M5 6v6c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V6M5 12v6c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-6"/>')},
- marketing:{n:'Marketing',c:'#9D3F8F',ct:133,i:ic('<path class="f" d="M4 10v4h3.5L15 18V6L7.5 10z"/><path d="M18 9.5c1.3 1.2 1.3 3.8 0 5"/>')},
- finance:{n:'Finance & Invoicing',c:'#0E7490',ct:64,i:ic('<path class="f" d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9.5 8.5h5M9.5 12h5"/>')},
- hr:{n:'HR & Ops',c:'#52525B',ct:52,i:ic('<circle class="f" cx="12" cy="5.5" r="2.5"/><circle class="f" cx="5.5" cy="18" r="2.5"/><circle class="f" cx="18.5" cy="18" r="2.5"/><path d="M12 8v3.5M12 11.5H5.5V15.5M12 11.5h6.5V15.5"/>')}
+ workflow:{n:'Workflow & No-Code',c:'#0F766E',i:ic('<circle class="f" cx="5" cy="6" r="2.6"/><circle class="f" cx="5" cy="18" r="2.6"/><circle class="f" cx="19" cy="12" r="2.6"/><path d="M7.6 6h3.4c3.2 0 3.2 6 6.4 6M7.6 18H11c3.2 0 3.2-6 6.4-6"/>')},
+ ai:{n:'AI Agents',c:'#7C3AED',i:ic('<path class="f" d="M10.5 3.5l1.9 5.1 5.1 1.9-5.1 1.9-1.9 5.1-1.9-5.1-5.1-1.9 5.1-1.9z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>')},
+ email:{n:'Email & Outreach',c:'#B45309',i:ic('<rect class="f" x="3" y="5.5" width="18" height="13" rx="3"/><path d="M4 8l8 5.5L20 8"/>')},
+ crm:{n:'CRM & Sales',c:'#BE3A5C',i:ic('<circle class="f" cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c0-3.3 2.4-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M18 9v7M21 12v4"/>')},
+ devops:{n:'DevOps',c:'#3B6BA5',i:ic('<rect class="f" x="3" y="4.5" width="18" height="15" rx="3"/><path d="M7.5 10l3 2.2-3 2.2M13 15h3.5"/>')},
+ data:{n:'Data & ETL',c:'#4D7C0F',i:ic('<ellipse class="f" cx="12" cy="6" rx="7" ry="2.8"/><path d="M5 6v6c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8V6M5 12v6c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-6"/>')},
+ marketing:{n:'Marketing',c:'#9D3F8F',i:ic('<path class="f" d="M4 10v4h3.5L15 18V6L7.5 10z"/><path d="M18 9.5c1.3 1.2 1.3 3.8 0 5"/>')},
+ finance:{n:'Finance & Invoicing',c:'#0E7490',i:ic('<path class="f" d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9.5 8.5h5M9.5 12h5"/>')},
+ hr:{n:'HR & Ops',c:'#52525B',i:ic('<circle class="f" cx="12" cy="5.5" r="2.5"/><circle class="f" cx="5.5" cy="18" r="2.5"/><circle class="f" cx="18.5" cy="18" r="2.5"/><path d="M12 8v3.5M12 11.5H5.5V15.5M12 11.5h6.5V15.5"/>')}
 };
-/* id, name, monogram, tile colour, category, rating, reviews, price label, tags, one-liner, search words, days since added */
-const T=[
- {id:'n8n',n:'n8n',l:'n8n',c:'#E0435F',cat:'workflow',r:4.7,rv:1840,p:'Freemium',tg:['No-Code','Self-hosted','API'],d:'Self-hostable workflow builder with real code escape hatches.',k:'zapier alternative open source self hosted workflow code webhook',a:210},
- {id:'make',n:'Make',l:'Mk',c:'#6D28D9',cat:'workflow',r:4.6,rv:3210,p:'From $9/mo',tg:['No-Code','Visual','API'],d:'Visual scenario builder, priced per operation instead of per task.',k:'zapier alternative integromat visual scenario',a:300},
- {id:'zapier',n:'Zapier',l:'Zap',c:'#F97316',cat:'workflow',r:4.5,rv:5480,p:'From $19.99/mo',tg:['No-Code','7,000+ apps'],d:'The 7,000-app default. Simple to start, pricey at volume.',k:'zap integrations connect apps',a:400},
- {id:'activepieces',n:'Activepieces',l:'Ap',c:'#4F46E5',cat:'workflow',r:4.4,rv:412,p:'Free',tg:['No-Code','Open source','Self-hosted'],d:'Open-source Zapier alternative you can run on your own server.',k:'zapier alternative open source self hosted free',a:5},
- {id:'relay',n:'Relay.app',l:'Rl',c:'#0F766E',cat:'workflow',r:4.6,rv:310,p:'Freemium',tg:['No-Code','Human-in-the-loop'],d:'Automations that pause for a human to approve or edit.',k:'zapier alternative approval ai human review',a:3},
- {id:'tray',n:'Tray.io',l:'Tr',c:'#1D4ED8',cat:'workflow',r:4.2,rv:390,p:'Custom pricing',tg:['Enterprise','API'],d:'Enterprise iPaaS for connecting CRMs, support desks and data stores.',k:'integration crm slack enterprise ipaas connect',a:520},
- {id:'pabbly',n:'Pabbly Connect',l:'Pab',c:'#2563EB',cat:'workflow',r:4.2,rv:610,p:'From $19/mo',tg:['No-Code','Lifetime deals'],d:'Cheap integration builder with generous task limits.',k:'zapier alternative invoice sheets spreadsheet budget',a:380},
- {id:'lindy',n:'Lindy',l:'Li',c:'#7C3AED',cat:'ai',r:4.3,rv:268,p:'From $49/mo',tg:['AI Agents','No-Code'],d:'AI agents you assign tasks to, like a new hire.',k:'assistant agent inbox calendar',a:9},
- {id:'gumloop',n:'Gumloop',l:'Gl',c:'#DB2777',cat:'ai',r:4.5,rv:95,p:'Freemium',tg:['AI Agents','No-Code'],d:'Drag-and-drop canvas for chaining LLM steps and scrapers.',k:'llm gpt claude scraper pipeline',a:1},
- {id:'bardeen',n:'Bardeen',l:'Bar',c:'#8B5CF6',cat:'ai',r:4.3,rv:520,p:'Freemium',tg:['AI Agents','Browser'],d:'Browser automations that scrape, fill forms and push to your CRM.',k:'scrape invoice sheets chrome extension spreadsheet',a:260},
- {id:'instantly',n:'Instantly',l:'In',c:'#2563EB',cat:'email',r:4.6,rv:1120,p:'From $37/mo',tg:['Cold email','Deliverability'],d:'Cold email at volume with unlimited inbox rotation.',k:'cold outreach email sequences automation send personalized',a:330},
- {id:'lemlist',n:'Lemlist',l:'Lm',c:'#4F46E5',cat:'email',r:4.4,rv:980,p:'From $59/mo',tg:['Cold email','Personalization'],d:'Outreach with image and video personalization variables.',k:'cold outreach email sequences automation personalized',a:290},
- {id:'woodpecker',n:'Woodpecker',l:'Wp',c:'#16A34A',cat:'email',r:4.5,rv:640,p:'From $29/mo',tg:['Cold email','Follow-ups'],d:'Plain, reliable cold email with smart follow-up rules.',k:'cold outreach email sequences automation follow up',a:350},
- {id:'attio',n:'Attio',l:'At',c:'#1A1A1A',cat:'crm',r:4.7,rv:290,p:'From $29/mo',tg:['CRM','API','Workflows'],d:'A CRM you shape yourself, with automation built into the data model.',k:'crm sales pipeline no-code customer',a:2},
- {id:'rippling',n:'Rippling',l:'Rp',c:'#B45309',cat:'hr',r:4.5,rv:1600,p:'Custom pricing',tg:['HR','IT','Payroll'],d:'HR, IT and payroll on one workflow engine.',k:'onboarding employee payroll people ops',a:480},
- {id:'ghactions',n:'GitHub Actions',l:'GH',c:'#24292F',cat:'devops',r:4.7,rv:6200,p:'Free tier',tg:['CI/CD','API'],d:'CI/CD that lives next to your code, with a huge action marketplace.',k:'ci cd pipeline deploy build test devops free',a:600},
- {id:'windmill',n:'Windmill',l:'Wm',c:'#0891B2',cat:'devops',r:4.6,rv:140,p:'Free',tg:['Open source','Scripts','Self-hosted'],d:'Turn scripts in any language into workflows, UIs and cron jobs.',k:'code scripts python typescript internal tools open source free',a:6},
- {id:'argocd',n:'Argo CD',l:'Arg',c:'#EA580C',cat:'devops',r:4.6,rv:510,p:'Free',tg:['GitOps','Open source'],d:'Declarative GitOps delivery for Kubernetes.',k:'kubernetes k8s deploy gitops devops free',a:700},
- {id:'pulumi',n:'Pulumi',l:'Pu',c:'#7C3AED',cat:'devops',r:4.5,rv:840,p:'Freemium',tg:['IaC','API'],d:'Infrastructure as code in the languages you already write.',k:'terraform alternative infrastructure typescript python',a:450},
- {id:'airbyte',n:'Airbyte',l:'Ab',c:'#4F46E5',cat:'data',r:4.5,rv:730,p:'Freemium',tg:['ETL','Open source','Self-hosted'],d:'Open-source ELT with 400+ connectors.',k:'etl pipeline warehouse sync data open source',a:410},
- {id:'hightouch',n:'Hightouch',l:'Ht',c:'#0F766E',cat:'data',r:4.6,rv:310,p:'Freemium',tg:['Reverse ETL'],d:'Sync warehouse data back into the tools your team uses.',k:'reverse etl warehouse crm sync data',a:15},
- {id:'dagster',n:'Dagster',l:'Dg',c:'#4338CA',cat:'data',r:4.6,rv:270,p:'Free',tg:['Orchestration','Open source'],d:'Data orchestration that treats assets as the unit of work.',k:'airflow alternative pipeline orchestrate data free',a:12},
- {id:'clay',n:'Clay',l:'Cl',c:'#1A1A1A',cat:'marketing',r:4.7,rv:860,p:'From $134/mo',tg:['Enrichment','Outbound'],d:'Waterfall data enrichment and outbound workflows in a spreadsheet.',k:'lead enrichment growth outbound sales prospecting',a:7},
- {id:'buffer',n:'Buffer',l:'Bf',c:'#2563EB',cat:'marketing',r:4.4,rv:1900,p:'Freemium',tg:['Social','Scheduling'],d:'Schedule and track social posts without the clutter.',k:'social media posts schedule linkedin twitter free',a:500},
- {id:'invoiceninja',n:'Invoice Ninja',l:'IN',c:'#0E7490',cat:'finance',r:4.4,rv:350,p:'Freemium',tg:['Invoicing','Open source'],d:'Open-source invoicing and payments you can host yourself.',k:'invoice invoices generate sheets billing open source',a:4},
- {id:'dext',n:'Dext',l:'Dx',c:'#16A34A',cat:'finance',r:4.3,rv:480,p:'From $24/mo',tg:['Receipts','Bookkeeping'],d:'Snap a receipt, get a clean entry in your books.',k:'receipts expenses accounting invoice bookkeeping',a:470}
-];
-/* detail fields. fl flags: sh self-hosted, api, wh webhooks, sso, os open source. dm: d desktop, m mobile. ps: price of first paid plan on free/freemium tools */
-const X={
- n8n:{f:2019,fl:'sh api wh os',ps:20,best:'Dev-leaning teams under 10 people',not:'Non-technical teams who want zero maintenance',love:['Code nodes when the UI runs out','Self-hosting keeps data in-house'],gripe:['The cloud plan caps executions','Steeper than Zapier on day one'],uniq:'Fair-code license with a self-hosted community edition',int:['Slack','Google Sheets','Postgres','OpenAI','Notion','GitHub']},
- make:{f:2012,fl:'api wh sso',best:'Ops teams building visual, multi-step scenarios',not:'High-volume simple automations, where per-operation pricing adds up',love:['Routers and iterators drawn on the canvas','Cheap per operation at low volume'],gripe:['Debugging long scenarios gets fiddly','Operations add up fast inside loops'],uniq:'Routers and iterators drawn right on the canvas',int:['Slack','Airtable','Gmail','HubSpot','Shopify','Stripe']},
- zapier:{f:2011,fl:'api wh sso',best:'Non-technical teams who need an app for everything',not:'Heavy-volume workflows on a tight budget',love:['7,000+ app connectors','Setup takes minutes'],gripe:['Gets expensive at volume','Branching logic feels bolted on'],uniq:'The widest app catalog in the category',int:['Slack','Gmail','Salesforce','Notion','Trello','Mailchimp']},
- activepieces:{f:2022,fl:'sh api wh os',ps:25,best:'Small teams that want an open-source Zapier',not:'Teams that need 1,000+ prebuilt apps today',love:['MIT licensed and easy to self-host','Clean, fast builder'],gripe:['Smaller integration list','Young community'],uniq:'MIT-licensed, with community-written pieces',int:['Slack','Google Sheets','OpenAI','Notion','Discord','GitHub']},
- relay:{f:2022,fl:'api wh',dm:'m',ps:19,best:'Teams that need a person to approve certain steps',not:'Fully unattended, high-volume pipelines',love:['Human approval steps built in','Friendly to non-developers'],gripe:['Fewer integrations than Zapier','Pricing climbs with step count'],uniq:'Human-in-the-loop steps are first-class',int:['Slack','Gmail','Notion','Asana','HubSpot','OpenAI']},
- tray:{f:2012,fl:'api wh sso',best:'Enterprise IT teams standardizing integrations',not:'Solo founders and small teams',love:['Strong governance and SSO','Handles complex data mapping'],gripe:['Sales-led pricing','Overkill for simple jobs'],uniq:'Embedded iPaaS for shipping integrations to your own customers',int:['Salesforce','Slack','Zendesk','Snowflake','NetSuite','Workday']},
- pabbly:{f:2018,fl:'api wh',best:'Budget-conscious teams with many simple automations',not:'Teams that need enterprise controls',love:['Generous task limits for the price','Lifetime deal options'],gripe:['The interface feels dated','Smaller connector list'],uniq:'Lifetime-deal pricing options',int:['Google Sheets','Stripe','Mailchimp','Shopify','WhatsApp','Gmail']},
- lindy:{f:2023,fl:'api wh',dm:'m',best:'Individuals delegating inbox and calendar chores',not:'Teams that need deterministic, auditable flows',love:['Agents handle messy inbox tasks','Quick to set up'],gripe:['Agents occasionally misjudge edge cases','Credit usage is hard to predict'],uniq:'Agents you brief in plain English',int:['Gmail','Google Calendar','Slack','HubSpot','Notion','Zoom']},
- gumloop:{f:2023,fl:'api wh',ps:37,best:'Ops people chaining LLM steps with scrapers',not:'Anyone who needs on-prem hosting',love:['Visual canvas for LLM chains','Strong templates'],gripe:['Credits burn quickly','Young product, still shifting'],uniq:'Built-in web scraper and LLM nodes on one canvas',int:['OpenAI','Google Sheets','Slack','Airtable','Notion','Gmail']},
- bardeen:{f:2020,fl:'api',dm:'d',ps:15,best:'Sales and recruiting teams who work in the browser',not:'Server-side, unattended workflows',love:['Scrape-to-spreadsheet in one click','Works on almost any site'],gripe:['Breaks when pages change','Runs in your browser only'],uniq:'Automations that run on the page you are looking at',int:['Google Sheets','Notion','HubSpot','LinkedIn','Airtable','Slack']},
- instantly:{f:2021,fl:'api wh',best:'Agencies sending outbound at volume',not:'Low-volume, one-to-one outreach',love:['Unlimited inbox rotation','Solid deliverability tooling'],gripe:['Support can be slow','Lead database quality varies'],uniq:'Unlimited sending accounts on every plan',int:['HubSpot','Pipedrive','Slack','Zapier','Clay','Salesforce']},
- lemlist:{f:2018,fl:'api wh',best:'Outbound teams that sell on personalization',not:'Teams that only need plain-text blasts',love:['Image and video personalization','Multichannel sequences'],gripe:['Pricier per seat','Sequences take time to learn'],uniq:'Dynamic images and video inside emails',int:['HubSpot','Salesforce','Pipedrive','Zapier','LinkedIn','Slack']},
- woodpecker:{f:2015,fl:'api wh',best:'Small B2B teams that value reliability',not:'Teams that want a lead database inside the tool',love:['Deliverability and bounce shield','Straightforward UI'],gripe:['Fewer integrations','Reporting is basic'],uniq:'Bounce shield that pauses risky sends',int:['Pipedrive','HubSpot','Zapier','Slack','Salesforce','Gmail']},
- attio:{f:2019,fl:'api wh sso',dm:'m',best:'Startups that outgrew a spreadsheet CRM',not:'Large sales orgs that need heavy custom reporting',love:['Flexible data model','Fast, clean UI'],gripe:['Reporting is still maturing','Fewer integrations than HubSpot'],uniq:'Objects and attributes you can reshape yourself',int:['Gmail','Slack','Google Calendar','Zapier','Typeform','Stripe']},
- rippling:{f:2016,fl:'api wh sso',dm:'m',best:'Growing companies unifying HR, IT and payroll',not:'Teams under 10 with simple payroll needs',love:['One system for people and devices','Powerful workflow rules'],gripe:['Quote-based pricing','Setup takes weeks'],uniq:'Device and app provisioning tied to HR events',int:['Slack','Okta','Google Workspace','Zoom','Salesforce','NetSuite']},
- ghactions:{f:2018,fl:'api wh sso',ps:4,best:'Any team already on GitHub',not:'Teams on other Git hosts',love:['Lives next to the code','Huge action marketplace'],gripe:['YAML gets unwieldy','Minutes cost extra on private repos'],uniq:'A marketplace of reusable actions',int:['Docker','AWS','Azure','Slack','Terraform','Kubernetes']},
- windmill:{f:2022,fl:'sh api wh sso os',best:'Engineers who prefer scripts to canvases',not:'Non-technical users',love:['Any language, one platform','Fast execution'],gripe:['The UI for non-devs is basic','Smaller community'],uniq:'Scripts become UIs, webhooks and cron jobs automatically',int:['Postgres','Slack','GitHub','S3','OpenAI','Stripe']},
- argocd:{f:2018,fl:'sh api wh sso os',best:'Platform teams running Kubernetes',not:'Teams that are not on Kubernetes',love:['Declarative and auditable','Clear drift detection'],gripe:['Steep initial setup','UI can lag on huge clusters'],uniq:'Continuous drift detection against Git',int:['Kubernetes','GitHub','GitLab','Helm','Slack','Prometheus']},
- pulumi:{f:2017,fl:'api sso os',ps:40,best:'Developers who want real languages for infrastructure',not:'Teams happy with plain Terraform HCL',love:['Loops and tests like normal code','Strong multi-cloud support'],gripe:['Smaller community than Terraform','State backend choices confuse newcomers'],uniq:'TypeScript, Python, Go and C# for infrastructure',int:['AWS','Azure','GCP','Kubernetes','GitHub','Datadog']},
- airbyte:{f:2020,fl:'sh api sso os',ps:10,best:'Data teams with many sources to sync',not:'Real-time streaming needs',love:['400+ connectors','Open source and self-hostable'],gripe:['Some connectors are community-grade','Resource hungry at scale'],uniq:'A connector builder for custom sources',int:['Snowflake','BigQuery','Postgres','Salesforce','Stripe','S3']},
- hightouch:{f:2018,fl:'api sso',ps:450,best:'Data teams activating warehouse data in business tools',not:'Teams without a data warehouse',love:['Models and audiences in SQL','Great sync debugging'],gripe:['Costs scale with destinations','Needs a warehouse first'],uniq:'An audience builder on top of your warehouse',int:['Snowflake','BigQuery','Salesforce','HubSpot','Braze','Segment']},
- dagster:{f:2018,fl:'sh api sso os',best:'Data engineers who think in assets',not:'Teams that only need simple scheduled jobs',love:['The asset-based mental model','Excellent local development'],gripe:['The concepts take time','Smaller ecosystem than Airflow'],uniq:'Software-defined assets with lineage built in',int:['dbt','Snowflake','BigQuery','Spark','Airbyte','Slack']},
- clay:{f:2017,fl:'api wh sso',best:'Growth teams enriching leads at scale',not:'Teams on a tight monthly budget',love:['Waterfall enrichment across providers','Spreadsheet-style flow'],gripe:['Credit costs add up','Steep jump from entry plans'],uniq:'Waterfall enrichment across 75+ data providers',int:['HubSpot','Salesforce','Slack','Instantly','LinkedIn','Google Sheets']},
- buffer:{f:2010,fl:'api',dm:'m',ps:6,best:'Small teams scheduling social posts',not:'Teams that need deep social analytics or a unified inbox',love:['Clean, fast scheduler','Generous free plan'],gripe:['Analytics are light','Few automation hooks'],uniq:'Simple queue-based scheduling',int:['Canva','Zapier','Feedly','Pocket','Google Drive','Slack']},
- invoiceninja:{f:2014,fl:'sh api wh os',dm:'m',ps:10,best:'Freelancers and agencies who want to self-host billing',not:'Companies that need deep accounting',love:['Self-hostable','Recurring invoices that just work'],gripe:['Reporting is limited','Self-hosting needs upkeep'],uniq:'Open-source invoicing with a client portal',int:['Stripe','PayPal','Zapier','QuickBooks','Google Sheets','Slack']},
- dext:{f:2010,fl:'api',dm:'m',best:'Small businesses drowning in receipts',not:'Teams that need full ERP workflows',love:['Accurate receipt extraction','Plays well with Xero and QuickBooks'],gripe:['Per-item fees add up','The mobile app can be slow'],uniq:'Receipt capture that posts straight to your books',int:['Xero','QuickBooks','FreshBooks','Sage','Zapier','Stripe']}
-};
-T.forEach(t=>{ const x=X[t.id]; Object.assign(t,x,{fl:x.fl.split(' '),dm:x.dm||''}); });
+/* 39 subcategories: [key, name, group, blurb]. They borrow the group's color and icon.
+   A tool's `cat` is its group; `sub` lists the finer categories it also belongs to. */
+[['ipaas','Integration Platforms','workflow','Connect your apps with triggers and actions, hosted for you.'],
+ ['selfhost','Self-Hosted Automation','workflow','Run it on your own server and keep the data in-house.'],
+ ['rpa','Browser & RPA','workflow','Click, type and scrape the way a person would.'],
+ ['forms','Forms & Surveys','workflow','Collect answers and send them where they need to go.'],
+ ['scheduling','Scheduling & Calendars','workflow','Book meetings and run things at the right time.'],
+ ['internal','Internal Tools','workflow','Turn scripts and queries into screens your team can use.'],
+ ['assistants','AI Assistants','ai','Helpers that handle your inbox, calendar and routine requests.'],
+ ['scraping','Web Scraping','ai','Pull structured data out of web pages.'],
+ ['llmops','LLM Ops','ai','Test, monitor and route the models behind your product.'],
+ ['docai','Document AI','ai','Read contracts, receipts and PDFs and return clean fields.'],
+ ['voice','Voice & Meetings','ai','Transcribe calls and turn them into notes and tasks.'],
+ ['cold','Cold Email','email','Sequences, inbox rotation and deliverability for outbound.'],
+ ['newsletter','Newsletters','email','Write, schedule and send to a list you own.'],
+ ['transactional','Transactional Email','email','Receipts, resets and alerts sent from your app.'],
+ ['inbox','Inbox Management','email','Sort, label and answer mail without opening it.'],
+ ['sales','Pipeline & Deals','crm','Track deals from first touch to signed.'],
+ ['support','Customer Support','crm','Help desks, chat and ticket routing.'],
+ ['enrich','Contact Enrichment','crm','Fill in company and contact details automatically.'],
+ ['proposals','Proposals & Contracts','crm','Draft, send and sign without the back and forth.'],
+ ['cicd','CI/CD','devops','Build, test and ship on every commit.'],
+ ['iac','Infrastructure as Code','devops','Describe servers and networks in code, then apply them.'],
+ ['gitops','GitOps & Kubernetes','devops','Keep clusters in sync with what is in Git.'],
+ ['monitoring','Monitoring & Alerts','devops','Know when something breaks before your users do.'],
+ ['scripts','Scripts & Runbooks','devops','Run and schedule scripts with logs and permissions.'],
+ ['etl','ETL & ELT','data','Move data from apps and databases into your warehouse.'],
+ ['reverse-etl','Reverse ETL','data','Send warehouse data back into the tools your team uses.'],
+ ['orchestration','Data Orchestration','data','Schedule and monitor pipelines made of many steps.'],
+ ['spreadsheets','Spreadsheets & Sheets','data','Automate the sheets everyone ends up living in.'],
+ ['bi','Dashboards & BI','data','Charts and reports that refresh themselves.'],
+ ['social','Social Media','marketing','Plan, schedule and publish across networks.'],
+ ['seo','SEO & Content','marketing','Research, write and track what ranks.'],
+ ['leadgen','Lead Generation','marketing','Find the right people and reach them at scale.'],
+ ['ads','Ads & Analytics','marketing','Run campaigns and see what they returned.'],
+ ['invoicing','Invoicing','finance','Create, send and chase invoices.'],
+ ['expenses','Expenses & Receipts','finance','Capture receipts and sort spending.'],
+ ['payments','Payments & Billing','finance','Take payments and manage subscriptions.'],
+ ['onboarding','Onboarding','hr','Checklists that start themselves on day one.'],
+ ['payroll','Payroll & Benefits','hr','Pay people on time in every country you hire.'],
+ ['itops','IT & Device Management','hr','Provision accounts and manage laptops.']
+].forEach(([k,n,g,d])=>{ CATS[k]={n,g,d,c:CATS[g].c,i:CATS[g].i}; });
+const inCat=(t,k)=>t.cat===k||!!t.sub&&t.sub.includes(k);
+const GROUPS=Object.entries(CATS).filter(([,v])=>!v.g); /* the 9 top-level categories */
+/* tools live in data/tools.json; T is filled in place once it loads (see ready) */
+const T=[];
 
 /* feature checklist per category: [group, [[name, tooltip]...]] */
 const FEAT={
@@ -111,21 +98,13 @@ const platforms=t=>['Web',...(t.fl.includes('api')?['API']:[]),...(t.dm.includes
 const ago=d=>d===0?'Added today':d===1?'Added yesterday':`Added ${d} days ago`;
 const fmt=n=>n.toLocaleString('en-US');
 const ARROW='<svg class="arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
-const newest=[...T].sort((a,b)=>a.a-b.a);
+const newest=[];
 const toolUrl=id=>`tool.html?id=${id}`;
 const catUrl=k=>k?`category.html?c=${k}`:'category.html';
 const cmpUrl=ids=>`compare.html?tools=${ids.join(',')}`;
 
-function tiers(t){
-  const ps=t.ps, p=priceNum(t);
-  if(/Custom/.test(t.p)) return [{n:'Custom',p:'Talk to sales',d:'Scoped to your team size and needs.',hl:1}];
-  if(isFree(t)){
-    const out=[{n:'Free',p:'$0',d:/Self-hosted/.test(t.tg.join())?'Self-host it, or use the limited cloud plan.':'Core features with usage caps.'}];
-    if(ps) out.push({n:'Paid',p:`From $${ps}/mo`,d:'Higher limits and priority support.',hl:1},{n:'Enterprise',p:'Custom',d:'SSO, audit logs and an SLA.'});
-    return out;
-  }
-  return [{n:'Starter',p:`$${p}/mo`,d:'Core features for one person or a small team.'},{n:'Pro',p:`$${Math.round(p*2.5)}/mo`,d:'Higher limits, more seats, priority support.',hl:1},{n:'Business',p:'Custom',d:'SSO, audit logs and an SLA.'}];
-}
+/* plans as the vendor lists them; see pricing.verified for whether we checked the vendor page */
+const tiers=t=>t.pricing.tiers;
 const FIRST=['Marta','Dev','Jonas','Priya','Tom','Aiko','Lena','Omar','Sofia','Ravi','Nina','Cal'];
 const LAST=['R.','K.','B.','S.','M.','L.','T.','H.'];
 const REV=[
@@ -143,16 +122,60 @@ function reviews(t){
 }
 
 /* instant search ranking, shared by home, category and compare */
+/* ponytail: in-browser index, fine for hundreds of tools. For thousands, swap rank()/rankCats() for
+   Algolia, Meilisearch or Typesense; every search box on the site goes through these two. */
+const tokens=text=>text.toLowerCase().split(/[^a-z0-9+.#-]+/).filter(Boolean).map(w=>w.length>3?w.replace(/s$/,''):w);
+/* edit distance with transpositions; gives up early once it passes `max` */
+function lev(a,b,max){
+  if(Math.abs(a.length-b.length)>max) return max+1;
+  let pp=null, p=Array.from({length:b.length+1},(_,j)=>j);
+  for(let i=1;i<=a.length;i++){
+    const c=[i]; let lo=i;
+    for(let j=1;j<=b.length;j++){
+      let v=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));
+      if(pp&&i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1]) v=Math.min(v,pp[j-2]+1);
+      c[j]=v; if(v<lo) lo=v;
+    }
+    if(lo>max) return max+1;
+    pp=p; p=c;
+  }
+  return p[b.length];
+}
+/* typo budget by length: none for short words, one edit up to 6 letters, two beyond */
+const budget=w=>w.length<4?0:w.length<7?1:2;
+const near=(w,words)=>{ const m=budget(w); return m>0&&words.some(x=>lev(w,x,m)<=m||(x.length>w.length&&lev(w,x.slice(0,w.length),m)<=m)); };
+const idx=new WeakMap();
+function index(t){
+  let x=idx.get(t); if(x) return x;
+  const name=t.n.toLowerCase(), cat=[CATS[t.cat].n,...(t.sub||[]).map(k=>CATS[k].n)].join(' ').toLowerCase(), tags=t.tg.join(' ').toLowerCase();
+  const hay=`${name} ${cat} ${tags} ${t.d.toLowerCase()} ${t.k} ${isFree(t)?'free':''}`;
+  const split=s=>[...new Set(s.split(/[^a-z0-9]+/).filter(w=>w.length>1))];
+  x={name,cat,tags,hay,nw:split(name),hw:split(`${cat} ${tags} ${t.k}`)};
+  idx.set(t,x); return x;
+}
 function rank(text,pool=T){
-  const toks=text.toLowerCase().split(/[^a-z0-9+.#-]+/).filter(Boolean).map(w=>w.length>3?w.replace(/s$/,''):w);
+  const toks=tokens(text);
   if(!toks.length) return [];
   return pool.map(t=>{
-    const name=t.n.toLowerCase(), cat=CATS[t.cat].n.toLowerCase(), tags=t.tg.join(' ').toLowerCase();
-    const hay=`${name} ${cat} ${tags} ${t.d.toLowerCase()} ${t.k} ${isFree(t)?'free':''}`;
-    let s=0;
-    toks.forEach(w=>{ if(name===w)s+=10; else if(name.startsWith(w))s+=8; else if(name.includes(w))s+=5; else if(tags.includes(w))s+=4; else if(cat.includes(w))s+=3; else if(hay.includes(w))s+=2; });
-    return {t,s};
+    const {name,cat,tags,hay,nw,hw}=index(t);
+    let s=0, hit=0;
+    toks.forEach(w=>{
+      const p=name===w?10:name.startsWith(w)?8:name.includes(w)?5:tags.includes(w)?4:cat.includes(w)?3:hay.includes(w)?2:near(w,nw)?4:near(w,hw)?1:0;
+      if(p){ s+=p; hit++; }
+    });
+    return {t,s:hit===toks.length&&toks.length>1?s+2:s};
   }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s||b.t.rv-a.t.rv).map(x=>x.t);
+}
+/* categories whose name matches every word typed (prefix or one typo away); empty ones are left out */
+function rankCats(text){
+  const toks=tokens(text);
+  if(!toks.length) return [];
+  return Object.entries(CATS).filter(([,v])=>v.ct>0).map(([k,v])=>{
+    const n=v.n.toLowerCase(), w=n.split(/[^a-z0-9+#]+/).filter(Boolean);
+    let s=0;
+    for(const x of toks){ const p=w.some(y=>y.startsWith(x))?3:near(x,w)?1:0; if(!p) return null; s+=p; }
+    return {isCat:true,k,v,s};
+  }).filter(Boolean).sort((a,b)=>b.s-a.s||b.v.ct-a.v.ct);
 }
 
 /* tool card for grids and carousels */
@@ -180,12 +203,46 @@ function observe(root=document){
   $$('.viz',root).forEach(el=>vio.observe(el));
 }
 
-const AF={$,$$,esc,hash,RM,FINE,CATS,T,FEAT,has,byId,lg,stars,isFree,price,priceNum,startLabel,freeLabel,platforms,ago,fmt,ARROW,newest,toolUrl,catUrl,cmpUrl,tiers,reviews,rank,card,toast,observe,
+const ready=fetch('data/tools.json').then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); }).then(d=>{
+  T.push(...d); newest.push(...[...T].sort((a,b)=>a.a-b.a));
+  Object.entries(CATS).forEach(([k,v])=>{ v.ct=T.filter(t=>inCat(t,k)).length; });
+  $$('[data-ct]').forEach(e=>{ const c=CATS[e.dataset.ct].ct; e.textContent=c+(c===1?' tool':' tools'); });
+  $('#megaNew').innerHTML=newest.slice(0,3).map(t=>`<li><a href="${toolUrl(t.id)}">${lg(t,'lg-s')}<span><b>${esc(t.n)}</b></span></a></li>`).join('');
+  $('#megaAll').firstChild.textContent=`Browse all ${T.length} tools `;
+}).catch(e=>{
+  console.error('tools.json failed',e);
+  const m=document.querySelector('main'); if(m) m.innerHTML='<div class="wrap" style="padding:140px 0"><h2>We couldn’t load the directory.</h2><p>Reload the page, or try again in a minute.</p></div>';
+  return new Promise(()=>{});
+});
+/* ---------- actions with effect ----------
+   Forms POST JSON to a Formspree-compatible endpoint (also works with Basin, Getform, Formcarry).
+   Paste each form's URL here. While one is empty, its form says so instead of faking success. */
+const ENDPOINTS={newsletter:'',tool:'',review:'',contact:''};
+class NotConfigured extends Error{}
+/* sends the form's fields as `kind`; a filled honeypot (_gotcha) resolves without sending */
+async function submitForm(kind,form,extra={}){
+  const data={...Object.fromEntries(new FormData(form)),...extra};
+  if(data._gotcha) return data;
+  if(!ENDPOINTS[kind]) throw new NotConfigured(kind);
+  const r=await fetch(ENDPOINTS[kind],{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({_form:kind,...data})});
+  if(!r.ok) throw new Error(r.status);
+  return data;
+}
+const failMsg=e=>e instanceof NotConfigured?'This form isn’t connected yet. Nothing was sent.':'Couldn’t send that. Check your connection and try again.';
+
+/* saved tools: per-device list in localStorage */
+const SAVED_KEY='af:saved';
+const saved=()=>{ try{ const s=JSON.parse(localStorage.getItem(SAVED_KEY)||'[]'); return Array.isArray(s)?s:[]; }catch(e){ return []; } };
+const isSaved=id=>saved().includes(id);
+function toggleSaved(id){ try{ const s=saved(), i=s.indexOf(id); i<0?s.push(id):s.splice(i,1); localStorage.setItem(SAVED_KEY,JSON.stringify(s)); }catch(e){} return isSaved(id); }
+
+const AF={ready,$,$$,esc,hash,RM,FINE,CATS,GROUPS,inCat,T,FEAT,has,byId,lg,stars,isFree,price,priceNum,startLabel,freeLabel,platforms,ago,fmt,ARROW,newest,toolUrl,catUrl,cmpUrl,tiers,reviews,rank,rankCats,card,toast,observe,
+  submitForm,failMsg,saved,isSaved,toggleSaved,
   searchHandler:()=>{ location.href='index.html#search'; }};
 window.AF=AF;
 
 /* ---------- site chrome: header, drawer, footer, utilities ---------- */
-const catEntries=Object.entries(CATS);
+const catEntries=GROUPS, nCats=Object.keys(CATS).length, allCatsUrl=catUrl()+'#categories';
 const cur=p=>document.body.dataset.page===p?' aria-current="page"':'';
 function insert(html,before){
   const box=document.createElement('div'); box.innerHTML=html;
@@ -206,14 +263,15 @@ insert(`
         <button type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Explore tools
           <svg class="chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg></button>
         <div class="mega" id="mega" role="region" aria-label="Browse tools by category">
-          <div class="mega-cats">${catEntries.map(([k,v])=>`<a href="${catUrl(k)}" style="--c:${v.c}"><span class="ci">${v.i}</span><span><b>${esc(v.n)}</b><small>${v.ct} tools</small></span></a>`).join('')}</div>
-          <div class="mega-side"><h4>New this week</h4><ul>${newest.slice(0,3).map(t=>`<li><a href="${toolUrl(t.id)}">${lg(t,'lg-s')}<span><b>${esc(t.n)}</b></span></a></li>`).join('')}</ul><a class="all" href="${catUrl()}">Browse all 2,412 tools ${ARROW}</a></div>
+          <div class="mega-cats">${catEntries.map(([k,v])=>`<a href="${catUrl(k)}" style="--c:${v.c}"><span class="ci">${v.i}</span><span><b>${esc(v.n)}</b><small data-ct="${k}"></small></span></a>`).join('')}</div>
+          <div class="mega-side"><h4>New this week</h4><ul id="megaNew"></ul><a class="all" id="megaAll" href="${catUrl()}">Browse all tools ${ARROW}</a><a class="all" href="${allCatsUrl}" style="margin-left:14px">All ${nCats} categories</a></div>
         </div>
       </li>
       <li><a href="compare.html"${cur('compare')}>Compare</a></li>
-      <li><a href="#">Collections</a></li>
-      <li><a href="#">Guides</a></li>
-      <li><a class="tip" href="#" data-tip="Know a tool we're missing? Tell us.">Submit a tool</a></li>
+      <li><a href="collections.html"${cur('collections')}>Collections</a></li>
+      <li><a href="articles.html?k=guides"${cur('guides')}>Guides</a></li>
+      <li><a href="saved.html"${cur('saved')}>Saved</a></li>
+      <li><a class="tip" href="submit.html" data-tip="Know a tool we're missing? Tell us."${cur('submit')}>Submit a tool</a></li>
     </ul></nav>
     <div class="nav-r">
       <button class="nav-search" id="navSearch" type="button" aria-label="Search tools">
@@ -226,8 +284,8 @@ insert(`
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="drawer-top"><span class="brand">AutomationFindr</span>
     <button class="burger" id="drawerClose" type="button" aria-label="Close menu" style="display:flex"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 3l12 12M15 3L3 15"/></svg></button></div>
-  <nav aria-label="Mobile"><a href="${catUrl()}">Explore tools</a><a href="compare.html">Compare</a><a href="#">Collections</a><a href="#">Guides</a><a href="#">Submit a tool</a></nav>
-  <div class="chips" style="display:flex;flex-wrap:wrap;gap:8px;margin:26px 0">${catEntries.map(([k,v])=>`<a class="chip" href="${catUrl(k)}">${esc(v.n)}</a>`).join('')}</div>
+  <nav aria-label="Mobile"><a href="${catUrl()}">Explore tools</a><a href="compare.html">Compare</a><a href="collections.html">Collections</a><a href="articles.html?k=guides">Guides</a><a href="saved.html">Saved</a><a href="submit.html">Submit a tool</a></nav>
+  <div class="chips" style="display:flex;flex-wrap:wrap;gap:8px;margin:26px 0">${catEntries.map(([k,v])=>`<a class="chip" href="${catUrl(k)}">${esc(v.n)}</a>`).join('')}<a class="chip" href="${allCatsUrl}">All ${nCats} categories</a></div>
   <a class="btn" href="index.html#search">Start searching</a>
 </div>`,$('main'));
 
@@ -236,9 +294,9 @@ insert(`
   <div class="foot-top">
     <div><a class="brand" href="index.html" aria-label="AutomationFindr, home"><svg viewBox="0 0 28 28" aria-hidden="true" style="width:30px;height:30px"><rect width="28" height="28" rx="8" fill="#0F766E"/><circle cx="14" cy="14" r="6.2" fill="none" stroke="#fff" stroke-width="2"/><circle cx="14" cy="14" r="2" fill="#F59E0B"/></svg>AutomationFindr</a>
       <p class="tag">Find your next automation tool.</p></div>
-    <nav aria-label="Directory"><h4>Directory</h4><ul><li><a href="${catUrl()}">All tools</a></li><li><a href="${catUrl()}">Categories</a></li><li><a href="compare.html">Compare</a></li><li><a href="#">Collections</a></li><li><a href="index.html#fresh-sec">New arrivals</a></li></ul></nav>
-    <nav aria-label="Resources"><h4>Resources</h4><ul><li><a href="#">Blog</a></li><li><a href="#">Guides</a></li><li><a href="index.html#h-news">Newsletter</a></li><li><a href="#">API docs</a></li><li><a href="#">Changelog</a></li></ul></nav>
-    <nav aria-label="Company"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li><li><a href="#">Submit a tool</a></li><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li></ul></nav>
+    <nav aria-label="Directory"><h4>Directory</h4><ul><li><a href="${catUrl()}">All tools</a></li><li><a href="${allCatsUrl}">Categories</a></li><li><a href="compare.html">Compare</a></li><li><a href="saved.html">Saved</a></li><li><a href="collections.html">Collections</a></li><li><a href="index.html#fresh-sec">New arrivals</a></li></ul></nav>
+    <nav aria-label="Resources"><h4>Resources</h4><ul><li><a href="articles.html?k=blog">Blog</a></li><li><a href="articles.html?k=guides">Guides</a></li><li><a href="index.html#h-news">Newsletter</a></li><li><a href="api.html">API docs</a></li><li><a href="changelog.html">Changelog</a></li></ul></nav>
+    <nav aria-label="Company"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="submit.html">Submit a tool</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></nav>
   </div>
   <div class="foot-bot"><p>© 2026 AutomationFindr. Made with craft, not templates.</p>
     <div class="soc">
@@ -289,6 +347,19 @@ brand.addEventListener('mouseenter',()=>{ bt=setTimeout(()=>{ brand.classList.ad
 brand.addEventListener('mouseleave',()=>clearTimeout(bt));
 
 document.addEventListener('click',e=>{ const a=e.target.closest('a[href="#"]'); if(a){ e.preventDefault(); toast('That page is part of the next build.'); } });
+
+/* page transitions: content fades out 200 ms before leaving; the incoming page fades in (see shared.css) */
+if(!RM){
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href]');
+    if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target||a.hasAttribute('download')) return;
+    const u=new URL(a.href);
+    if(u.origin!==location.origin||(u.pathname===location.pathname&&u.search===location.search)) return;
+    e.preventDefault(); document.documentElement.classList.add('leaving');
+    setTimeout(()=>{ location.href=a.href; },200);
+  });
+  addEventListener('pageshow',e=>{ if(e.persisted) document.documentElement.classList.remove('leaving'); });
+}
 
 { const d=new Date(), h=d.getHours()+d.getMinutes()/60; $('#foot').style.setProperty('--warm',Math.round((Math.sin((h-6)/24*Math.PI*2)*.5+.5)*100)+'%'); }
 

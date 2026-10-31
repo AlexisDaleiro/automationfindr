@@ -25,6 +25,20 @@
 .cats .chip{flex:none;height:36px;font-size:.8125rem}
 .cats .chip[aria-current=page]{background:var(--ink);color:#fff;border-color:var(--ink)}
 
+.subs{margin-top:2px}
+.subs[hidden]{display:none}
+.subs .chip{height:32px;background:transparent;box-shadow:none}
+.subs .chip[aria-current=page]{background:var(--ink)}
+.cats .chip[aria-current=true]{border-color:var(--ink)}
+.chd .up{display:inline-block;margin-bottom:10px;font-size:.9375rem;font-weight:500;color:var(--mute)}
+.chd .up:hover{color:var(--ink)}
+.catdir{margin-top:clamp(56px,8vw,96px);padding-top:clamp(24px,4vw,40px);border-top:1px solid var(--line);scroll-margin-top:84px}
+.catdir h2{font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1;margin-bottom:24px}
+.dir{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:28px 24px}
+.dir h3{font:600 1rem var(--sans);margin-bottom:8px}
+.dir h3 a:hover,.dir li a:hover{text-decoration:underline;text-underline-offset:3px}
+.dir li{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:.9375rem;color:var(--ink)}
+.dir li span{font:400 .75rem var(--mono);color:var(--mute);align-self:center}
 .sbar{position:sticky;top:64px;z-index:30;padding:12px 0;margin-top:14px;background:linear-gradient(var(--bg) 70%,transparent)}
 .sfld{display:flex;align-items:center;gap:12px;height:54px;padding:0 10px 0 18px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;box-shadow:var(--inset-hi),0 1px 2px rgba(26,26,26,.05),0 8px 20px -8px rgba(26,26,26,.12);transition:border-color var(--duration-normal),box-shadow var(--duration-normal)}
 .sfld:focus-within{border-color:var(--teal);box-shadow:var(--inset-hi),0 0 0 4px rgba(13,148,136,.14),0 8px 20px -8px rgba(26,26,26,.12)}
@@ -112,6 +126,7 @@
 <main id="main" class="page"><div class="wrap">
   <header class="chd" id="chd"></header>
   <nav class="cats" id="cats" aria-label="Categories"></nav>
+  <nav class="cats subs" id="subs" aria-label="Subcategories" hidden></nav>
 
   <div class="sbar"><div class="sfld" id="sfld" role="search" aria-label="Search within results">
     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2L17 17"/></svg>
@@ -146,13 +161,14 @@
       <div class="more" id="more"></div>
     </section>
   </div>
+  <section class="catdir" id="categories" aria-labelledby="catdir-h"><div id="catdir"></div></section>
 </div></main>
 
 <script src="shared.js"></script>
 <script>
-(()=>{
+AF.ready.then(()=>{
 'use strict';
-const {$,$$,esc,RM,CATS,T,card,rank,isFree,priceNum,platforms,catUrl,observe}=AF;
+const {$,$$,esc,RM,CATS,GROUPS,inCat,T,card,rank,isFree,priceNum,platforms,catUrl,observe}=AF;
 const PAGE=6;
 const DESC={
  workflow:'Connect apps and move data between them without writing a backend.',
@@ -171,7 +187,7 @@ const XS='<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-widt
 
 const params=new URLSearchParams(location.search);
 let cat=CATS[params.get('c')]?params.get('c'):'all';
-const scope=()=>cat==='all'?T:T.filter(t=>t.cat===cat);
+const scope=()=>cat==='all'?T:T.filter(t=>inCat(t,cat));
 const kind=t=>t.p==='Free'?'free':/^(Freemium|Free tier)/.test(t.p)?'freemium':'paid';
 
 /* filter state */
@@ -182,8 +198,15 @@ function head(){
   const v=CATS[cat], n=scope().length;
   document.title=`${cat==='all'?'All tools':v.n} | AutomationFindr`;
   $('#chd').innerHTML=`<div class="big" style="--c:${cat==='all'?'var(--teal)':v.c}" aria-hidden="true">${cat==='all'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>':v.i}</div>
-    <div><h1>${cat==='all'?'All tools':esc(v.n)}</h1><p>${DESC[cat]}</p></div>`;
-  $('#cats').innerHTML=[['all','All']].concat(Object.entries(CATS).map(([k,c])=>[k,c.n])).map(([k,n])=>`<a class="chip" href="${k==='all'?catUrl():catUrl(k)}" ${k===cat?'aria-current="page"':''}>${esc(n)}</a>`).join('');
+    <div>${cat!=='all'&&v.g?`<a class="up" href="${catUrl(v.g)}">${esc(CATS[v.g].n)}</a>`:''}<h1>${cat==='all'?'All tools':esc(v.n)}</h1><p>${DESC[cat]||esc(v.d)}</p></div>`;
+  const grp=cat==='all'?'':v.g||cat;
+  $('#cats').innerHTML=[['all','All']].concat(GROUPS.map(([k,c])=>[k,c.n])).map(([k,n])=>`<a class="chip" href="${k==='all'?catUrl():catUrl(k)}" ${k===cat?'aria-current="page"':k===grp?'aria-current="true"':''}>${esc(n)}</a>`).join('');
+  /* second row: the subcategories of the current group */
+  const kids=Object.entries(CATS).filter(([,c])=>c.g===grp);
+  $('#subs').hidden=!kids.length;
+  $('#subs').innerHTML=kids.length?[[grp,'Everything']].concat(kids.map(([k,c])=>[k,c.n])).map(([k,n])=>`<a class="chip" href="${catUrl(k)}" ${k===cat?'aria-current="page"':''}>${esc(n)}${k===grp?'':` <i>${CATS[k].ct}</i>`}</a>`).join(''):'';
+  /* directory of every category, grouped; the home page and the menu link to #categories */
+  $('#catdir').innerHTML=`<h2 id="catdir-h">All ${Object.keys(CATS).length} categories</h2><div class="dir">${GROUPS.map(([g,c])=>`<div><h3><a href="${catUrl(g)}">${esc(c.n)}</a></h3><ul>${Object.entries(CATS).filter(([,x])=>x.g===g).map(([k,x])=>`<li><a href="${catUrl(k)}">${esc(x.n)}</a><span>${x.ct}</span></li>`).join('')}</ul></div>`).join('')}</div>`;
 }
 
 /* filter controls */
@@ -231,7 +254,9 @@ function paint(opts={}){
   $('#af').innerHTML=act.map(([k,v,l])=>`<button class="chip" type="button" data-rm="${k}" data-v="${esc(v)}" aria-label="Remove filter ${esc(l)}">${esc(l)}${XS}</button>`).join('');
 
   if(!list.length){
-    res.innerHTML=`<div class="none" style="grid-column:1/-1"><h2>Nothing here yet. Try broader terms or browse by category.</h2><p>${activeCount()?'Your filters are narrowing this to zero.':'No tool matches that search.'}</p><button class="btn" type="button" id="none-reset">Start fresh</button><div class="row">${Object.entries(CATS).slice(0,5).map(([k,c])=>`<a class="chip" href="${catUrl(k)}">${esc(c.n)}</a>`).join('')}</div></div>`;
+    const empty=!scope().length;
+    res.innerHTML=empty?`<div class="none" style="grid-column:1/-1"><h2>No tools in ${esc(CATS[cat].n)} yet.</h2><p>We list a tool only after checking its pricing on the vendor page. Know a good one?</p><a class="btn" href="submit.html">Submit a tool</a><div class="row">${GROUPS.slice(0,5).map(([k,c])=>`<a class="chip" href="${catUrl(k)}">${esc(c.n)}</a>`).join('')}</div></div>`
+     :`<div class="none" style="grid-column:1/-1"><h2>Nothing here yet. Try broader terms or browse by category.</h2><p>${activeCount()?'Your filters are narrowing this to zero.':'No tool matches that search.'}</p><button class="btn" type="button" id="none-reset">Start fresh</button><div class="row">${GROUPS.slice(0,5).map(([k,c])=>`<a class="chip" href="${catUrl(k)}">${esc(c.n)}</a>`).join('')}</div></div>`;
     $('#more').innerHTML=''; return;
   }
   res.innerHTML=vis.map((t,i)=>card(t,i).replace(' rv"','"')).join('');
@@ -289,7 +314,7 @@ scrim.addEventListener('click',()=>sheet(false));
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&fl.classList.contains('open')) sheet(false); });
 
 head(); controls(); paint(); observe();
-})();
+});
 </script>
 </body>
 </html>

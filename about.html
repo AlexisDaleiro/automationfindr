@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | AutomationFindr</title>
+<meta name="description" content="What AutomationFindr is, how listings work, and what is still a placeholder.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:var(--max-width-narrow);margin-bottom:clamp(32px,5vw,48px)}
+.fact{padding:18px 20px;border-radius:18px;background:var(--white);border:1px solid var(--line);box-shadow:var(--inset-hi),var(--shadow-1)}
+.fact b{display:block;font:400 2.4rem/1 var(--serif);letter-spacing:-.02em}
+.fact span{display:block;margin-top:6px;color:var(--mute);font-size:.875rem}
+</style>
+</head>
+<body data-page="about">
+<main id="main" class="page"><div class="wrap">
+  <header class="ph">
+    <h1>About AutomationFindr</h1>
+    <p>A directory for people choosing automation tools, with the prices checked against the vendor.</p>
+  </header>
+
+  <div class="facts" id="facts" aria-live="polite"></div>
+
+  <div class="prose">
+    <h2>What this is</h2>
+    <p>Picking an automation tool means opening a dozen tabs, each with a pricing page that hides the number you need. AutomationFindr puts the tools side by side: what they do, what they cost, and where they differ. You can <a href="compare.html">compare up to three</a>, <a href="saved.html">save the ones you like</a>, and go straight to the vendor's own site.</p>
+
+    <h2>How a listing gets here</h2>
+    <p>Anyone can <a href="submit.html">submit a tool</a>. We read the vendor's own site before a tool goes live. Prices come from the vendor's pricing page, and each tool's Pricing tab shows the date we checked and a link to the page we used. When we couldn't read a vendor's page, the tool says so instead of passing a guess off as fact.</p>
+
+    <h2>What is still a placeholder</h2>
+    <p>We would rather tell you than leave you to find out:</p>
+    <ul>
+      <li>Star ratings, review counts and the sample reviews are illustrative. They are marked as such on the tool pages.</li>
+      <li>The feature checklists are illustrative until each vendor is verified.</li>
+      <li>Reviews you write are read by a person before they are published. Until then only you see them, labelled "Pending review".</li>
+    </ul>
+    <p>The post <a href="articles.html?k=blog&amp;s=whats-real">What's real and what's still a placeholder</a> explains this in more detail.</p>
+
+    <h2>Links to vendors</h2>
+    <p>"Visit website" goes straight to the vendor's site. We don't add tracking parameters to those links.</p>
+
+    <h2>Get in touch</h2>
+    <p>Spotted a wrong price or a dead link? Use the <a href="contact.html">contact form</a>. Corrections are the most useful mail we get.</p>
+  </div>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+AF.ready.then(()=>{
+  const {T,CATS,$}=AF;
+  const ok=T.filter(t=>t.pricing.verified).length;
+  $('#facts').innerHTML=[[T.length,'tools listed'],[Object.keys(CATS).length,'categories'],[ok,'with prices checked on the vendor page']].map(([n,l])=>`<div class="fact"><b>${n}</b><span>${l}</span></div>`).join('');
+});
+</script>
+</body>
+</html>

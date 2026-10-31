@@ -1,0 +1,1852 @@
+[
+ {
+  "id": "n8n",
+  "n": "n8n",
+  "l": "n8n",
+  "c": "#E0435F",
+  "cat": "workflow",
+  "sub": [
+   "selfhost",
+   "ipaas"
+  ],
+  "r": 4.7,
+  "rv": 1840,
+  "p": "Freemium",
+  "tg": [
+   "No-Code",
+   "Self-hosted",
+   "API"
+  ],
+  "d": "Self-hostable workflow builder with real code escape hatches.",
+  "k": "zapier alternative open source self hosted workflow code webhook",
+  "a": 210,
+  "f": 2019,
+  "fl": [
+   "sh",
+   "api",
+   "wh",
+   "os"
+  ],
+  "best": "Dev-leaning teams under 10 people",
+  "not": "Non-technical teams who want zero maintenance",
+  "love": [
+   "Code nodes when the UI runs out",
+   "Self-hosting keeps data in-house"
+  ],
+  "gripe": [
+   "The cloud plan caps executions",
+   "Steeper than Zapier on day one"
+  ],
+  "uniq": "Fair-code license with a self-hosted community edition",
+  "int": [
+   "Slack",
+   "Google Sheets",
+   "Postgres",
+   "OpenAI",
+   "Notion",
+   "GitHub"
+  ],
+  "dm": "",
+  "url": "https://n8n.io",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Community (self-hosted)",
+     "p": "Free",
+     "d": "Run it yourself from GitHub."
+    },
+    {
+     "n": "Starter",
+     "p": "€20/mo",
+     "d": "Cloud, billed annually. Free trial."
+    },
+    {
+     "n": "Pro",
+     "p": "€50/mo",
+     "d": "Cloud, billed annually. Free trial."
+    },
+    {
+     "n": "Business",
+     "p": "€667/mo",
+     "d": "Self-hosted, billed annually. 14-day trial."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://n8n.io/pricing",
+   "note": "Vendor lists prices in EUR, billed annually. No free cloud plan; the free option is the self-hosted Community Edition."
+  }
+ },
+ {
+  "id": "make",
+  "n": "Make",
+  "l": "Mk",
+  "c": "#6D28D9",
+  "cat": "workflow",
+  "sub": [
+   "ipaas"
+  ],
+  "r": 4.6,
+  "rv": 3210,
+  "p": "From $9/mo",
+  "tg": [
+   "No-Code",
+   "Visual",
+   "API"
+  ],
+  "d": "Visual scenario builder, priced per operation instead of per task.",
+  "k": "zapier alternative integromat visual scenario",
+  "a": 300,
+  "f": 2012,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "best": "Ops teams building visual, multi-step scenarios",
+  "not": "High-volume simple automations, where per-operation pricing adds up",
+  "love": [
+   "Routers and iterators drawn on the canvas",
+   "Cheap per operation at low volume"
+  ],
+  "gripe": [
+   "Debugging long scenarios gets fiddly",
+   "Operations add up fast inside loops"
+  ],
+  "uniq": "Routers and iterators drawn right on the canvas",
+  "int": [
+   "Slack",
+   "Airtable",
+   "Gmail",
+   "HubSpot",
+   "Shopify",
+   "Stripe"
+  ],
+  "dm": "",
+  "url": "https://make.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "1,000 credits a month."
+    },
+    {
+     "n": "Core",
+     "p": "$9/mo",
+     "d": "Billed annually."
+    },
+    {
+     "n": "Pro",
+     "p": "$16/mo",
+     "d": "Billed annually."
+    },
+    {
+     "n": "Teams",
+     "p": "$29/mo",
+     "d": "10,000 credits, billed annually."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": null,
+   "src": "https://www.make.com/en/pricing",
+   "note": "make.com does not show USD prices to our crawler. Figures are from G2 and the vendor snippet (billed annually). Check the vendor page."
+  }
+ },
+ {
+  "id": "zapier",
+  "n": "Zapier",
+  "l": "Zap",
+  "c": "#F97316",
+  "cat": "workflow",
+  "sub": [
+   "ipaas"
+  ],
+  "r": 4.5,
+  "rv": 5480,
+  "p": "From $19.99/mo",
+  "tg": [
+   "No-Code",
+   "7,000+ apps"
+  ],
+  "d": "The 7,000-app default. Simple to start, pricey at volume.",
+  "k": "zap integrations connect apps",
+  "a": 400,
+  "f": 2011,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "best": "Non-technical teams who need an app for everything",
+  "not": "Heavy-volume workflows on a tight budget",
+  "love": [
+   "7,000+ app connectors",
+   "Setup takes minutes"
+  ],
+  "gripe": [
+   "Gets expensive at volume",
+   "Branching logic feels bolted on"
+  ],
+  "uniq": "The widest app catalog in the category",
+  "int": [
+   "Slack",
+   "Gmail",
+   "Salesforce",
+   "Notion",
+   "Trello",
+   "Mailchimp"
+  ],
+  "dm": "",
+  "url": "https://zapier.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "100 tasks a month."
+    },
+    {
+     "n": "Professional",
+     "p": "$19.99/mo",
+     "d": "Billed annually, 750 tasks. $29.99 billed monthly."
+    },
+    {
+     "n": "Team",
+     "p": "$69/mo",
+     "d": "Billed annually, 2,000 tasks. $103.50 billed monthly."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://zapier.com/pricing",
+   "note": "Entry tiers shown; higher task volumes cost more. Annual billing price, monthly is higher."
+  }
+ },
+ {
+  "id": "activepieces",
+  "n": "Activepieces",
+  "l": "Ap",
+  "c": "#4F46E5",
+  "cat": "workflow",
+  "sub": [
+   "selfhost",
+   "ipaas"
+  ],
+  "r": 4.4,
+  "rv": 412,
+  "p": "Freemium",
+  "tg": [
+   "No-Code",
+   "Open source",
+   "Self-hosted"
+  ],
+  "d": "Open-source Zapier alternative you can run on your own server.",
+  "k": "zapier alternative open source self hosted free",
+  "a": 5,
+  "f": 2022,
+  "fl": [
+   "sh",
+   "api",
+   "wh",
+   "os"
+  ],
+  "best": "Small teams that want an open-source Zapier",
+  "not": "Teams that need 1,000+ prebuilt apps today",
+  "love": [
+   "MIT licensed and easy to self-host",
+   "Clean, fast builder"
+  ],
+  "gripe": [
+   "Smaller integration list",
+   "Young community"
+  ],
+  "uniq": "MIT-licensed, with community-written pieces",
+  "int": [
+   "Slack",
+   "Google Sheets",
+   "OpenAI",
+   "Notion",
+   "Discord",
+   "GitHub"
+  ],
+  "dm": "",
+  "url": "https://activepieces.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Cloud free plan; Community Edition is self-hostable."
+    },
+    {
+     "n": "Plus",
+     "p": "$20/mo",
+     "d": "Flat price."
+    },
+    {
+     "n": "Team",
+     "p": "$200/mo",
+     "d": "Flat price."
+    },
+    {
+     "n": "Ultimate",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.activepieces.com/pricing",
+   "note": "Embed starts at $36k a year."
+  }
+ },
+ {
+  "id": "relay",
+  "n": "Relay.app",
+  "l": "Rl",
+  "c": "#0F766E",
+  "cat": "workflow",
+  "sub": [
+   "ipaas"
+  ],
+  "r": 4.6,
+  "rv": 310,
+  "p": "Freemium",
+  "tg": [
+   "No-Code",
+   "Human-in-the-loop"
+  ],
+  "d": "Automations that pause for a human to approve or edit.",
+  "k": "zapier alternative approval ai human review",
+  "a": 3,
+  "f": 2022,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "dm": "m",
+  "best": "Teams that need a person to approve certain steps",
+  "not": "Fully unattended, high-volume pipelines",
+  "love": [
+   "Human approval steps built in",
+   "Friendly to non-developers"
+  ],
+  "gripe": [
+   "Fewer integrations than Zapier",
+   "Pricing climbs with step count"
+  ],
+  "uniq": "Human-in-the-loop steps are first-class",
+  "int": [
+   "Slack",
+   "Gmail",
+   "Notion",
+   "Asana",
+   "HubSpot",
+   "OpenAI"
+  ],
+  "url": "https://relay.app",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Single user, limited steps and AI credits."
+    },
+    {
+     "n": "Professional",
+     "p": "$19/mo",
+     "d": "Billed annually."
+    },
+    {
+     "n": "Team",
+     "p": "$59/mo",
+     "d": "Billed annually."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": null,
+   "src": "https://relay.app/pricing",
+   "note": "Pricing page was not readable. Figures are third-party (billed annually). Check the vendor page."
+  }
+ },
+ {
+  "id": "tray",
+  "n": "Tray.io",
+  "l": "Tr",
+  "c": "#1D4ED8",
+  "cat": "workflow",
+  "sub": [
+   "ipaas"
+  ],
+  "r": 4.2,
+  "rv": 390,
+  "p": "From $50/mo",
+  "tg": [
+   "Enterprise",
+   "API"
+  ],
+  "d": "Enterprise iPaaS for connecting CRMs, support desks and data stores.",
+  "k": "integration crm slack enterprise ipaas connect",
+  "a": 520,
+  "f": 2012,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "best": "Enterprise IT teams standardizing integrations",
+  "not": "Solo founders and small teams",
+  "love": [
+   "Strong governance and SSO",
+   "Handles complex data mapping"
+  ],
+  "gripe": [
+   "Sales-led pricing",
+   "Overkill for simple jobs"
+  ],
+  "uniq": "Embedded iPaaS for shipping integrations to your own customers",
+  "int": [
+   "Salesforce",
+   "Slack",
+   "Zendesk",
+   "Snowflake",
+   "NetSuite",
+   "Workday"
+  ],
+  "dm": "",
+  "url": "https://tray.ai",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Builder",
+     "p": "$50/mo",
+     "d": "Starting price on the vendor page."
+    },
+    {
+     "n": "Pro",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    },
+    {
+     "n": "Team",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://tray.ai/pricing",
+   "note": "Only the entry price is public; 30-day free trial."
+  }
+ },
+ {
+  "id": "pabbly",
+  "n": "Pabbly Connect",
+  "l": "Pab",
+  "c": "#2563EB",
+  "cat": "workflow",
+  "sub": [
+   "ipaas"
+  ],
+  "r": 4.2,
+  "rv": 610,
+  "p": "Freemium",
+  "tg": [
+   "No-Code",
+   "Lifetime deals"
+  ],
+  "d": "Cheap integration builder with generous task limits.",
+  "k": "zapier alternative invoice sheets spreadsheet budget",
+  "a": 380,
+  "f": 2018,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "best": "Budget-conscious teams with many simple automations",
+  "not": "Teams that need enterprise controls",
+  "love": [
+   "Generous task limits for the price",
+   "Lifetime deal options"
+  ],
+  "gripe": [
+   "The interface feels dated",
+   "Smaller connector list"
+  ],
+  "uniq": "Lifetime-deal pricing options",
+  "int": [
+   "Google Sheets",
+   "Stripe",
+   "Mailchimp",
+   "Shopify",
+   "WhatsApp",
+   "Gmail"
+  ],
+  "dm": "",
+  "url": "https://pabbly.com/connect",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "₹0",
+     "d": "100 tasks a month."
+    },
+    {
+     "n": "Standard",
+     "p": "₹1,138/mo",
+     "d": "10,000 tasks a month."
+    },
+    {
+     "n": "Unlimited",
+     "p": "₹4,999/mo",
+     "d": "Unlimited tasks."
+    },
+    {
+     "n": "Lifetime",
+     "p": "From ₹32,799",
+     "d": "One-time payment, from 3,000 tasks a month."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.pabbly.com/connect/pricing/",
+   "note": "Vendor lists prices in INR only; standard and unlimited monthly rates are tied to a multi-year plan."
+  }
+ },
+ {
+  "id": "lindy",
+  "n": "Lindy",
+  "l": "Li",
+  "c": "#7C3AED",
+  "cat": "ai",
+  "sub": [
+   "assistants",
+   "inbox"
+  ],
+  "r": 4.3,
+  "rv": 268,
+  "p": "From $29.99/mo",
+  "tg": [
+   "AI Agents",
+   "No-Code"
+  ],
+  "d": "AI agents you assign tasks to, like a new hire.",
+  "k": "assistant agent inbox calendar",
+  "a": 9,
+  "f": 2023,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "dm": "m",
+  "best": "Individuals delegating inbox and calendar chores",
+  "not": "Teams that need deterministic, auditable flows",
+  "love": [
+   "Agents handle messy inbox tasks",
+   "Quick to set up"
+  ],
+  "gripe": [
+   "Agents occasionally misjudge edge cases",
+   "Credit usage is hard to predict"
+  ],
+  "uniq": "Agents you brief in plain English",
+  "int": [
+   "Gmail",
+   "Google Calendar",
+   "Slack",
+   "HubSpot",
+   "Notion",
+   "Zoom"
+  ],
+  "url": "https://lindy.ai",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "$50 in credits that expire after 7 days."
+    },
+    {
+     "n": "Team",
+     "p": "$29.99/mo",
+     "d": "3,000 credits; larger packs up to $9,999.50."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.lindy.ai/pricing",
+   "note": "The free plan is a one-time credit with a 7-day expiry. Higher credit packs cost more."
+  }
+ },
+ {
+  "id": "gumloop",
+  "n": "Gumloop",
+  "l": "Gl",
+  "c": "#DB2777",
+  "cat": "ai",
+  "sub": [
+   "scraping",
+   "assistants"
+  ],
+  "r": 4.5,
+  "rv": 95,
+  "p": "Freemium",
+  "tg": [
+   "AI Agents",
+   "No-Code"
+  ],
+  "d": "Drag-and-drop canvas for chaining LLM steps and scrapers.",
+  "k": "llm gpt claude scraper pipeline",
+  "a": 1,
+  "f": 2023,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "best": "Ops people chaining LLM steps with scrapers",
+  "not": "Anyone who needs on-prem hosting",
+  "love": [
+   "Visual canvas for LLM chains",
+   "Strong templates"
+  ],
+  "gripe": [
+   "Credits burn quickly",
+   "Young product, still shifting"
+  ],
+  "uniq": "Built-in web scraper and LLM nodes on one canvas",
+  "int": [
+   "OpenAI",
+   "Google Sheets",
+   "Slack",
+   "Airtable",
+   "Notion",
+   "Gmail"
+  ],
+  "dm": "",
+  "url": "https://gumloop.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Monthly credit allowance, one seat."
+    },
+    {
+     "n": "Solo",
+     "p": "$37/mo",
+     "d": "10,000 credits, one seat."
+    },
+    {
+     "n": "Team",
+     "p": "See vendor",
+     "d": "Price varies by credits and seats."
+    }
+   ],
+   "verified": null,
+   "src": "https://www.gumloop.com/pricing",
+   "note": "Pricing page was not readable and third parties disagree on Team. Check the vendor page."
+  }
+ },
+ {
+  "id": "bardeen",
+  "n": "Bardeen",
+  "l": "Bar",
+  "c": "#8B5CF6",
+  "cat": "ai",
+  "sub": [
+   "rpa",
+   "scraping"
+  ],
+  "r": 4.3,
+  "rv": 520,
+  "p": "Freemium",
+  "tg": [
+   "AI Agents",
+   "Browser"
+  ],
+  "d": "Browser automations that scrape, fill forms and push to your CRM.",
+  "k": "scrape invoice sheets chrome extension spreadsheet",
+  "a": 260,
+  "f": 2020,
+  "fl": [
+   "api"
+  ],
+  "dm": "d",
+  "best": "Sales and recruiting teams who work in the browser",
+  "not": "Server-side, unattended workflows",
+  "love": [
+   "Scrape-to-spreadsheet in one click",
+   "Works on almost any site"
+  ],
+  "gripe": [
+   "Breaks when pages change",
+   "Runs in your browser only"
+  ],
+  "uniq": "Automations that run on the page you are looking at",
+  "int": [
+   "Google Sheets",
+   "Notion",
+   "HubSpot",
+   "LinkedIn",
+   "Airtable",
+   "Slack"
+  ],
+  "url": "https://bardeen.ai",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "100 credits a month."
+    },
+    {
+     "n": "Basic",
+     "p": "$10/mo",
+     "d": "Billed monthly."
+    },
+    {
+     "n": "Premium",
+     "p": "$50/mo",
+     "d": "$480 billed annually."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Billed annually."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.bardeen.ai/pricing",
+   "note": "The vendor gives 100 credits free every month; no named free plan."
+  }
+ },
+ {
+  "id": "instantly",
+  "n": "Instantly",
+  "l": "In",
+  "c": "#2563EB",
+  "cat": "email",
+  "sub": [
+   "cold"
+  ],
+  "r": 4.6,
+  "rv": 1120,
+  "p": "From $37.60/mo",
+  "tg": [
+   "Cold email",
+   "Deliverability"
+  ],
+  "d": "Cold email at volume with unlimited inbox rotation.",
+  "k": "cold outreach email sequences automation send personalized",
+  "a": 330,
+  "f": 2021,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "best": "Agencies sending outbound at volume",
+  "not": "Low-volume, one-to-one outreach",
+  "love": [
+   "Unlimited inbox rotation",
+   "Solid deliverability tooling"
+  ],
+  "gripe": [
+   "Support can be slow",
+   "Lead database quality varies"
+  ],
+  "uniq": "Unlimited sending accounts on every plan",
+  "int": [
+   "HubSpot",
+   "Pipedrive",
+   "Slack",
+   "Zapier",
+   "Clay",
+   "Salesforce"
+  ],
+  "dm": "",
+  "url": "https://instantly.ai",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Growth",
+     "p": "$37.60/mo",
+     "d": "Billed annually. $47 billed monthly."
+    },
+    {
+     "n": "Hypergrowth",
+     "p": "$77.60/mo",
+     "d": "Billed annually. $97 billed monthly."
+    },
+    {
+     "n": "Light Speed",
+     "p": "$286.30/mo",
+     "d": "Billed annually. $358 billed monthly."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://instantly.ai/pricing",
+   "note": "Outreach plans shown, annual billing price first. The vendor page contains conflicting figures in places."
+  }
+ },
+ {
+  "id": "lemlist",
+  "n": "Lemlist",
+  "l": "Lm",
+  "c": "#4F46E5",
+  "cat": "email",
+  "sub": [
+   "cold"
+  ],
+  "r": 4.4,
+  "rv": 980,
+  "p": "From $55/mo",
+  "tg": [
+   "Cold email",
+   "Personalization"
+  ],
+  "d": "Outreach with image and video personalization variables.",
+  "k": "cold outreach email sequences automation personalized",
+  "a": 290,
+  "f": 2018,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "best": "Outbound teams that sell on personalization",
+  "not": "Teams that only need plain-text blasts",
+  "love": [
+   "Image and video personalization",
+   "Multichannel sequences"
+  ],
+  "gripe": [
+   "Pricier per seat",
+   "Sequences take time to learn"
+  ],
+  "uniq": "Dynamic images and video inside emails",
+  "int": [
+   "HubSpot",
+   "Salesforce",
+   "Pipedrive",
+   "Zapier",
+   "LinkedIn",
+   "Slack"
+  ],
+  "dm": "",
+  "url": "https://lemlist.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Email",
+     "p": "$55/mo",
+     "d": "Billed annually. $69 billed monthly. Unlimited users."
+    },
+    {
+     "n": "Multichannel",
+     "p": "$87/mo",
+     "d": "Per user, billed annually. $109 billed monthly."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.lemlist.com/pricing",
+   "note": "14-day free trial, no free plan."
+  }
+ },
+ {
+  "id": "woodpecker",
+  "n": "Woodpecker",
+  "l": "Wp",
+  "c": "#16A34A",
+  "cat": "email",
+  "sub": [
+   "cold"
+  ],
+  "r": 4.5,
+  "rv": 640,
+  "p": "From $29/mo",
+  "tg": [
+   "Cold email",
+   "Follow-ups"
+  ],
+  "d": "Plain, reliable cold email with smart follow-up rules.",
+  "k": "cold outreach email sequences automation follow up",
+  "a": 350,
+  "f": 2015,
+  "fl": [
+   "api",
+   "wh"
+  ],
+  "best": "Small B2B teams that value reliability",
+  "not": "Teams that want a lead database inside the tool",
+  "love": [
+   "Deliverability and bounce shield",
+   "Straightforward UI"
+  ],
+  "gripe": [
+   "Fewer integrations",
+   "Reporting is basic"
+  ],
+  "uniq": "Bounce shield that pauses risky sends",
+  "int": [
+   "Pipedrive",
+   "HubSpot",
+   "Zapier",
+   "Slack",
+   "Salesforce",
+   "Gmail"
+  ],
+  "dm": "",
+  "url": "https://woodpecker.co",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Cold email",
+     "p": "From $29/mo",
+     "d": "Priced by contacted prospects, starting at 500."
+    }
+   ],
+   "verified": null,
+   "src": "https://woodpecker.co/pricing/",
+   "note": "The vendor page prices by a volume slider we could not read. Entry price is third-party. Check the vendor page."
+  }
+ },
+ {
+  "id": "attio",
+  "n": "Attio",
+  "l": "At",
+  "c": "#1A1A1A",
+  "cat": "crm",
+  "sub": [
+   "sales"
+  ],
+  "r": 4.7,
+  "rv": 290,
+  "p": "Freemium",
+  "tg": [
+   "CRM",
+   "API",
+   "Workflows"
+  ],
+  "d": "A CRM you shape yourself, with automation built into the data model.",
+  "k": "crm sales pipeline no-code customer",
+  "a": 2,
+  "f": 2019,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "dm": "m",
+  "best": "Startups that outgrew a spreadsheet CRM",
+  "not": "Large sales orgs that need heavy custom reporting",
+  "love": [
+   "Flexible data model",
+   "Fast, clean UI"
+  ],
+  "gripe": [
+   "Reporting is still maturing",
+   "Fewer integrations than HubSpot"
+  ],
+  "uniq": "Objects and attributes you can reshape yourself",
+  "int": [
+   "Gmail",
+   "Slack",
+   "Google Calendar",
+   "Zapier",
+   "Typeform",
+   "Stripe"
+  ],
+  "url": "https://attio.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Free plan available."
+    },
+    {
+     "n": "Plus",
+     "p": "$35/mo",
+     "d": "Billed annually. $44 billed monthly."
+    },
+    {
+     "n": "Pro",
+     "p": "$79/mo",
+     "d": "Billed annually. $99 billed monthly."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.attio.com/pricing",
+   "note": "Per seat."
+  }
+ },
+ {
+  "id": "rippling",
+  "n": "Rippling",
+  "l": "Rp",
+  "c": "#B45309",
+  "cat": "hr",
+  "sub": [
+   "onboarding",
+   "payroll",
+   "itops"
+  ],
+  "r": 4.5,
+  "rv": 1600,
+  "p": "Custom pricing",
+  "tg": [
+   "HR",
+   "IT",
+   "Payroll"
+  ],
+  "d": "HR, IT and payroll on one workflow engine.",
+  "k": "onboarding employee payroll people ops",
+  "a": 480,
+  "f": 2016,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "dm": "m",
+  "best": "Growing companies unifying HR, IT and payroll",
+  "not": "Teams under 10 with simple payroll needs",
+  "love": [
+   "One system for people and devices",
+   "Powerful workflow rules"
+  ],
+  "gripe": [
+   "Quote-based pricing",
+   "Setup takes weeks"
+  ],
+  "uniq": "Device and app provisioning tied to HR events",
+  "int": [
+   "Slack",
+   "Okta",
+   "Google Workspace",
+   "Zoom",
+   "Salesforce",
+   "NetSuite"
+  ],
+  "url": "https://rippling.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Per employee",
+     "p": "From $8/mo",
+     "d": "Plus a monthly base fee; full price needs a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.rippling.com/pricing",
+   "note": "Vendor says plans start at $8 per employee per month plus a monthly base fee."
+  }
+ },
+ {
+  "id": "ghactions",
+  "n": "GitHub Actions",
+  "l": "GH",
+  "c": "#24292F",
+  "cat": "devops",
+  "sub": [
+   "cicd"
+  ],
+  "r": 4.7,
+  "rv": 6200,
+  "p": "Free tier",
+  "tg": [
+   "CI/CD",
+   "API"
+  ],
+  "d": "CI/CD that lives next to your code, with a huge action marketplace.",
+  "k": "ci cd pipeline deploy build test devops free",
+  "a": 600,
+  "f": 2018,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "best": "Any team already on GitHub",
+  "not": "Teams on other Git hosts",
+  "love": [
+   "Lives next to the code",
+   "Huge action marketplace"
+  ],
+  "gripe": [
+   "YAML gets unwieldy",
+   "Minutes cost extra on private repos"
+  ],
+  "uniq": "A marketplace of reusable actions",
+  "int": [
+   "Docker",
+   "AWS",
+   "Azure",
+   "Slack",
+   "Terraform",
+   "Kubernetes"
+  ],
+  "dm": "",
+  "url": "https://github.com/features/actions",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Public repos",
+     "p": "Free",
+     "d": "Standard hosted runners at no cost."
+    },
+    {
+     "n": "GitHub Free",
+     "p": "$12 credit",
+     "d": "About 2,000 Linux minutes on private repos."
+    },
+    {
+     "n": "Pro / Team",
+     "p": "$18 credit",
+     "d": "About 3,000 Linux minutes on private repos."
+    },
+    {
+     "n": "Enterprise Cloud",
+     "p": "$300 credit",
+     "d": "50,000 Linux minutes. Overage is $0.006 a minute."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions",
+   "note": "Free for public repositories. Included minutes are shown as a dollar credit; minute counts are derived at the Linux 2-core rate."
+  }
+ },
+ {
+  "id": "windmill",
+  "n": "Windmill",
+  "l": "Wm",
+  "c": "#0891B2",
+  "cat": "devops",
+  "sub": [
+   "scripts",
+   "selfhost",
+   "internal"
+  ],
+  "r": 4.6,
+  "rv": 140,
+  "p": "Freemium",
+  "tg": [
+   "Open source",
+   "Scripts",
+   "Self-hosted"
+  ],
+  "d": "Turn scripts in any language into workflows, UIs and cron jobs.",
+  "k": "code scripts python typescript internal tools open source free",
+  "a": 6,
+  "f": 2022,
+  "fl": [
+   "sh",
+   "api",
+   "wh",
+   "sso",
+   "os"
+  ],
+  "best": "Engineers who prefer scripts to canvases",
+  "not": "Non-technical users",
+  "love": [
+   "Any language, one platform",
+   "Fast execution"
+  ],
+  "gripe": [
+   "The UI for non-devs is basic",
+   "Smaller community"
+  ],
+  "uniq": "Scripts become UIs, webhooks and cron jobs automatically",
+  "int": [
+   "Postgres",
+   "Slack",
+   "GitHub",
+   "S3",
+   "OpenAI",
+   "Stripe"
+  ],
+  "dm": "",
+  "url": "https://windmill.dev",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Community",
+     "p": "Free",
+     "d": "Open source, self-hosted."
+    },
+    {
+     "n": "Enterprise",
+     "p": "From $120/mo",
+     "d": "Self-hosted."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.windmill.dev/pricing",
+   "note": "Paid plans are self-hosted. Nonprofits get 40% off Enterprise."
+  }
+ },
+ {
+  "id": "argocd",
+  "n": "Argo CD",
+  "l": "Arg",
+  "c": "#EA580C",
+  "cat": "devops",
+  "sub": [
+   "gitops"
+  ],
+  "r": 4.6,
+  "rv": 510,
+  "p": "Free",
+  "tg": [
+   "GitOps",
+   "Open source"
+  ],
+  "d": "Declarative GitOps delivery for Kubernetes.",
+  "k": "kubernetes k8s deploy gitops devops free",
+  "a": 700,
+  "f": 2018,
+  "fl": [
+   "sh",
+   "api",
+   "wh",
+   "sso",
+   "os"
+  ],
+  "best": "Platform teams running Kubernetes",
+  "not": "Teams that are not on Kubernetes",
+  "love": [
+   "Declarative and auditable",
+   "Clear drift detection"
+  ],
+  "gripe": [
+   "Steep initial setup",
+   "UI can lag on huge clusters"
+  ],
+  "uniq": "Continuous drift detection against Git",
+  "int": [
+   "Kubernetes",
+   "GitHub",
+   "GitLab",
+   "Helm",
+   "Slack",
+   "Prometheus"
+  ],
+  "dm": "",
+  "url": "https://argo-cd.readthedocs.io",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Open source",
+     "p": "Free",
+     "d": "Self-hosted, no paid plan from the project."
+    }
+   ],
+   "verified": null,
+   "src": "https://argo-cd.readthedocs.io/",
+   "note": "Open-source CNCF project; no vendor pricing page."
+  }
+ },
+ {
+  "id": "pulumi",
+  "n": "Pulumi",
+  "l": "Pu",
+  "c": "#7C3AED",
+  "cat": "devops",
+  "sub": [
+   "iac"
+  ],
+  "r": 4.5,
+  "rv": 840,
+  "p": "Freemium",
+  "tg": [
+   "IaC",
+   "API"
+  ],
+  "d": "Infrastructure as code in the languages you already write.",
+  "k": "terraform alternative infrastructure typescript python",
+  "a": 450,
+  "f": 2017,
+  "fl": [
+   "api",
+   "sso",
+   "os"
+  ],
+  "best": "Developers who want real languages for infrastructure",
+  "not": "Teams happy with plain Terraform HCL",
+  "love": [
+   "Loops and tests like normal code",
+   "Strong multi-cloud support"
+  ],
+  "gripe": [
+   "Smaller community than Terraform",
+   "State backend choices confuse newcomers"
+  ],
+  "uniq": "TypeScript, Python, Go and C# for infrastructure",
+  "int": [
+   "AWS",
+   "Azure",
+   "GCP",
+   "Kubernetes",
+   "GitHub",
+   "Datadog"
+  ],
+  "dm": "",
+  "url": "https://pulumi.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Individual",
+     "p": "$0",
+     "d": "Free for one user."
+    },
+    {
+     "n": "Essentials",
+     "p": "$40/mo"
+    },
+    {
+     "n": "Pro",
+     "p": "$400/mo"
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.pulumi.com/pricing/",
+   "note": ""
+  }
+ },
+ {
+  "id": "airbyte",
+  "n": "Airbyte",
+  "l": "Ab",
+  "c": "#4F46E5",
+  "cat": "data",
+  "sub": [
+   "etl",
+   "selfhost"
+  ],
+  "r": 4.5,
+  "rv": 730,
+  "p": "Freemium",
+  "tg": [
+   "ETL",
+   "Open source",
+   "Self-hosted"
+  ],
+  "d": "Open-source ELT with 400+ connectors.",
+  "k": "etl pipeline warehouse sync data open source",
+  "a": 410,
+  "f": 2020,
+  "fl": [
+   "sh",
+   "api",
+   "sso",
+   "os"
+  ],
+  "best": "Data teams with many sources to sync",
+  "not": "Real-time streaming needs",
+  "love": [
+   "400+ connectors",
+   "Open source and self-hostable"
+  ],
+  "gripe": [
+   "Some connectors are community-grade",
+   "Resource hungry at scale"
+  ],
+  "uniq": "A connector builder for custom sources",
+  "int": [
+   "Snowflake",
+   "BigQuery",
+   "Postgres",
+   "Salesforce",
+   "Stripe",
+   "S3"
+  ],
+  "dm": "",
+  "url": "https://airbyte.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Core (self-hosted)",
+     "p": "Free",
+     "d": "Open source."
+    },
+    {
+     "n": "Standard",
+     "p": "From $20/mo",
+     "d": "Managed cloud."
+    },
+    {
+     "n": "Plus",
+     "p": "From $189/mo",
+     "d": "Managed cloud."
+    },
+    {
+     "n": "Pro",
+     "p": "Custom",
+     "d": "Capacity quote."
+    },
+    {
+     "n": "Enterprise Flex",
+     "p": "Custom",
+     "d": "Deployment quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://airbyte.com/pricing",
+   "note": "Airbyte Core is free to self-host; the paid plans are managed cloud."
+  }
+ },
+ {
+  "id": "hightouch",
+  "n": "Hightouch",
+  "l": "Ht",
+  "c": "#0F766E",
+  "cat": "data",
+  "sub": [
+   "reverse-etl"
+  ],
+  "r": 4.6,
+  "rv": 310,
+  "p": "Freemium",
+  "tg": [
+   "Reverse ETL"
+  ],
+  "d": "Sync warehouse data back into the tools your team uses.",
+  "k": "reverse etl warehouse crm sync data",
+  "a": 15,
+  "f": 2018,
+  "fl": [
+   "api",
+   "sso"
+  ],
+  "best": "Data teams activating warehouse data in business tools",
+  "not": "Teams without a data warehouse",
+  "love": [
+   "Models and audiences in SQL",
+   "Great sync debugging"
+  ],
+  "gripe": [
+   "Costs scale with destinations",
+   "Needs a warehouse first"
+  ],
+  "uniq": "An audience builder on top of your warehouse",
+  "int": [
+   "Snowflake",
+   "BigQuery",
+   "Salesforce",
+   "HubSpot",
+   "Braze",
+   "Segment"
+  ],
+  "dm": "",
+  "url": "https://hightouch.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Basic Reverse ETL, up to 2 active syncs."
+    },
+    {
+     "n": "Composable CDP",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    },
+    {
+     "n": "Agentic Marketing Platform",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://hightouch.com/pricing",
+   "note": "No dollar prices are published; paid plans are sales-led."
+  }
+ },
+ {
+  "id": "dagster",
+  "n": "Dagster",
+  "l": "Dg",
+  "c": "#4338CA",
+  "cat": "data",
+  "sub": [
+   "orchestration"
+  ],
+  "r": 4.6,
+  "rv": 270,
+  "p": "From $10/mo",
+  "tg": [
+   "Orchestration",
+   "Open source"
+  ],
+  "d": "Data orchestration that treats assets as the unit of work.",
+  "k": "airflow alternative pipeline orchestrate data free",
+  "a": 12,
+  "f": 2018,
+  "fl": [
+   "sh",
+   "api",
+   "sso",
+   "os"
+  ],
+  "best": "Data engineers who think in assets",
+  "not": "Teams that only need simple scheduled jobs",
+  "love": [
+   "The asset-based mental model",
+   "Excellent local development"
+  ],
+  "gripe": [
+   "The concepts take time",
+   "Smaller ecosystem than Airflow"
+  ],
+  "uniq": "Software-defined assets with lineage built in",
+  "int": [
+   "dbt",
+   "Snowflake",
+   "BigQuery",
+   "Spark",
+   "Airbyte",
+   "Slack"
+  ],
+  "dm": "",
+  "url": "https://dagster.io",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Solo",
+     "p": "$10/mo",
+     "d": "Cloud."
+    },
+    {
+     "n": "Starter",
+     "p": "$100/mo",
+     "d": "Cloud."
+    },
+    {
+     "n": "Pro",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://dagster.io/pricing",
+   "note": "30-day free trial on paid plans. The open-source core is free to self-host."
+  }
+ },
+ {
+  "id": "clay",
+  "n": "Clay",
+  "l": "Cl",
+  "c": "#1A1A1A",
+  "cat": "marketing",
+  "sub": [
+   "enrich",
+   "leadgen"
+  ],
+  "r": 4.7,
+  "rv": 860,
+  "p": "Freemium",
+  "tg": [
+   "Enrichment",
+   "Outbound"
+  ],
+  "d": "Waterfall data enrichment and outbound workflows in a spreadsheet.",
+  "k": "lead enrichment growth outbound sales prospecting",
+  "a": 7,
+  "f": 2017,
+  "fl": [
+   "api",
+   "wh",
+   "sso"
+  ],
+  "best": "Growth teams enriching leads at scale",
+  "not": "Teams on a tight monthly budget",
+  "love": [
+   "Waterfall enrichment across providers",
+   "Spreadsheet-style flow"
+  ],
+  "gripe": [
+   "Credit costs add up",
+   "Steep jump from entry plans"
+  ],
+  "uniq": "Waterfall enrichment across 75+ data providers",
+  "int": [
+   "HubSpot",
+   "Salesforce",
+   "Slack",
+   "Instantly",
+   "LinkedIn",
+   "Google Sheets"
+  ],
+  "dm": "",
+  "url": "https://clay.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Free plan available."
+    },
+    {
+     "n": "Launch",
+     "p": "$167/mo",
+     "d": "FAQ says from $185."
+    },
+    {
+     "n": "Growth",
+     "p": "$446/mo",
+     "d": "FAQ says from $495."
+    },
+    {
+     "n": "Enterprise",
+     "p": "Custom",
+     "d": "Contact sales for a quote."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://www.clay.com/pricing",
+   "note": "The vendor page shows two different figures for Launch and Growth (pricing section vs FAQ). Annual billing saves 10%."
+  }
+ },
+ {
+  "id": "buffer",
+  "n": "Buffer",
+  "l": "Bf",
+  "c": "#2563EB",
+  "cat": "marketing",
+  "sub": [
+   "social"
+  ],
+  "r": 4.4,
+  "rv": 1900,
+  "p": "Freemium",
+  "tg": [
+   "Social",
+   "Scheduling"
+  ],
+  "d": "Schedule and track social posts without the clutter.",
+  "k": "social media posts schedule linkedin twitter free",
+  "a": 500,
+  "f": 2010,
+  "fl": [
+   "api"
+  ],
+  "dm": "m",
+  "best": "Small teams scheduling social posts",
+  "not": "Teams that need deep social analytics or a unified inbox",
+  "love": [
+   "Clean, fast scheduler",
+   "Generous free plan"
+  ],
+  "gripe": [
+   "Analytics are light",
+   "Few automation hooks"
+  ],
+  "uniq": "Simple queue-based scheduling",
+  "int": [
+   "Canva",
+   "Zapier",
+   "Feedly",
+   "Pocket",
+   "Google Drive",
+   "Slack"
+  ],
+  "url": "https://buffer.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Up to 3 channels."
+    },
+    {
+     "n": "Essentials",
+     "p": "$5/mo",
+     "d": "Per channel."
+    },
+    {
+     "n": "Team",
+     "p": "$10/mo",
+     "d": "Per channel."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://buffer.com/pricing",
+   "note": "Per channel. The vendor page is inconsistent about the annual discount."
+  }
+ },
+ {
+  "id": "invoiceninja",
+  "n": "Invoice Ninja",
+  "l": "IN",
+  "c": "#0E7490",
+  "cat": "finance",
+  "sub": [
+   "invoicing",
+   "selfhost"
+  ],
+  "r": 4.4,
+  "rv": 350,
+  "p": "Freemium",
+  "tg": [
+   "Invoicing",
+   "Open source"
+  ],
+  "d": "Open-source invoicing and payments you can host yourself.",
+  "k": "invoice invoices generate sheets billing open source",
+  "a": 4,
+  "f": 2014,
+  "fl": [
+   "sh",
+   "api",
+   "wh",
+   "os"
+  ],
+  "dm": "m",
+  "best": "Freelancers and agencies who want to self-host billing",
+  "not": "Companies that need deep accounting",
+  "love": [
+   "Self-hostable",
+   "Recurring invoices that just work"
+  ],
+  "gripe": [
+   "Reporting is limited",
+   "Self-hosting needs upkeep"
+  ],
+  "uniq": "Open-source invoicing with a client portal",
+  "int": [
+   "Stripe",
+   "PayPal",
+   "Zapier",
+   "QuickBooks",
+   "Google Sheets",
+   "Slack"
+  ],
+  "url": "https://invoiceninja.com",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Free",
+     "p": "$0",
+     "d": "Up to 5 clients."
+    },
+    {
+     "n": "Pro",
+     "p": "$14/mo",
+     "d": "$140 billed annually."
+    },
+    {
+     "n": "Enterprise",
+     "p": "$18 to $300/mo",
+     "d": "By number of users."
+    },
+    {
+     "n": "Premium Business",
+     "p": "Custom",
+     "d": "From $280 a year."
+    }
+   ],
+   "verified": "2026-10-31",
+   "src": "https://invoiceninja.com/pricing/",
+   "note": "Self-hosting is a separate offering."
+  }
+ },
+ {
+  "id": "dext",
+  "n": "Dext",
+  "l": "Dx",
+  "c": "#16A34A",
+  "cat": "finance",
+  "sub": [
+   "expenses"
+  ],
+  "r": 4.3,
+  "rv": 480,
+  "p": "From $34/mo",
+  "tg": [
+   "Receipts",
+   "Bookkeeping"
+  ],
+  "d": "Snap a receipt, get a clean entry in your books.",
+  "k": "receipts expenses accounting invoice bookkeeping",
+  "a": 470,
+  "f": 2010,
+  "fl": [
+   "api"
+  ],
+  "dm": "m",
+  "best": "Small businesses drowning in receipts",
+  "not": "Teams that need full ERP workflows",
+  "love": [
+   "Accurate receipt extraction",
+   "Plays well with Xero and QuickBooks"
+  ],
+  "gripe": [
+   "Per-item fees add up",
+   "The mobile app can be slow"
+  ],
+  "uniq": "Receipt capture that posts straight to your books",
+  "int": [
+   "Xero",
+   "QuickBooks",
+   "FreshBooks",
+   "Sage",
+   "Zapier",
+   "Stripe"
+  ],
+  "url": "https://dext.com/en",
+  "pricing": {
+   "tiers": [
+    {
+     "n": "Business Plus",
+     "p": "$34/mo",
+     "d": "Up to 5 users and 300 documents a month."
+    }
+   ],
+   "verified": null,
+   "src": "https://dext.com/en",
+   "note": "The pricing page was not readable and sources disagree. Figures are third-party. Check the vendor page."
+  }
+ }
+]

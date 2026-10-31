@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collections | AutomationFindr</title>
+<meta name="description" content="Curated lists of automation tools: self-hosted, free to start, new arrivals and more.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+</head>
+<body data-page="collections">
+<main id="main" class="page"><div class="wrap" id="app"></div></main>
+
+<script src="shared.js"></script>
+<script>
+AF.ready.then(()=>{
+'use strict';
+const {$,esc,T,card,observe,catUrl,cmpUrl,ARROW,isFree,priceNum}=AF;
+/* a collection is either a rule over the data or a hand-picked list of ids */
+const COLS=[
+ {s:'free-to-start',t:'Free to start',d:'You can use these without paying first, whether through a free plan or a free tier.',f:t=>isFree(t)},
+ {s:'self-hosted',t:'Self-hosted',d:'Run it on your own server and keep the data in-house.',f:t=>t.fl.includes('sh')},
+ {s:'open-source',t:'Open source',d:'The code is public. Read it, fork it, or run it yourself.',f:t=>t.fl.includes('os')},
+ {s:'sso',t:'Ready for teams',d:'Sign-in through your identity provider, for teams with an IT checklist.',f:t=>t.fl.includes('sso')},
+ {s:'under-30',t:'Paid, under $30 a month',d:'Entry plans that start below $30 a month. Check the vendor for the limits.',f:t=>!isFree(t)&&!/Custom/.test(t.p)&&priceNum(t)<30},
+ {s:'new-arrivals',t:'New arrivals',d:'The tools added most recently, newest first.',f:t=>t.a<=15,sort:(a,b)=>a.a-b.a},
+ {s:'outbound-stack',t:'An outbound sales stack',d:'Find leads, enrich them, send the emails and track the deals.',ids:['clay','instantly','lemlist','woodpecker','attio']},
+ {s:'data-team',t:'A data team toolkit',d:'Move data in, orchestrate it, and push it back out to the tools people use.',ids:['airbyte','dagster','hightouch','windmill']}
+];
+const pick=c=>c.ids?c.ids.map(AF.byId).filter(Boolean):T.filter(c.f).sort(c.sort||((a,b)=>b.rv-a.rv));
+const app=$('#app'), slug=new URLSearchParams(location.search).get('c'), col=COLS.find(c=>c.s===slug);
+
+if(slug&&!col){
+  document.title='Collection not found | AutomationFindr';
+  app.innerHTML=`<div class="empty"><h2>That collection isn’t here.</h2><p>It may have moved, or the link is off by a letter.</p><a class="btn" href="collections.html">See all collections</a></div>`;
+}else if(col){
+  const tools=pick(col);
+  document.title=`${col.t} | AutomationFindr`;
+  document.querySelector('meta[name=description]').content=col.d;
+  app.innerHTML=`<a class="crumb" href="collections.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>All collections</a>
+   <header class="ph"><h1>${esc(col.t)}</h1><p>${esc(col.d)}</p></header>
+   <p class="meta" style="margin-bottom:20px">${tools.length} ${tools.length===1?'tool':'tools'}${tools.length>=2?` · <a class="link" href="${cmpUrl(tools.slice(0,3).map(t=>t.id))}" style="font-size:inherit"><span>Compare the first ${Math.min(3,tools.length)}</span>${ARROW}</a>`:''}</p>
+   <div class="cgrid">${tools.map((t,i)=>card(t,i)).join('')}</div>`;
+  observe(app);
+}else{
+  app.innerHTML=`<header class="ph"><h1>Collections</h1><p>Short lists for a particular need. Some follow a rule, so they grow as the directory grows. Others are picked by hand.</p></header>
+   <div class="cgrid">${COLS.map((c,i)=>{ const n=pick(c).length; return `<a class="lcard rv" style="--i:${i%5}" href="collections.html?c=${c.s}"><h2>${esc(c.t)}</h2><p>${esc(c.d)}</p><span class="meta">${n} ${n===1?'tool':'tools'}${c.ids?' · hand-picked':''}</span></a>`; }).join('')}</div>`;
+  observe(app);
+}
+});
+</script>
+</body>
+</html>

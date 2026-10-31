@@ -1,0 +1,97 @@
+[
+ {
+  "k":"guides","s":"choose-an-automation-tool","t":"How to choose an automation tool","date":"2026-10-31","read":5,
+  "d":"Five questions that narrow a long list down to two or three tools worth trying.",
+  "tools":["n8n","zapier","make"],
+  "body":[
+   "Most people pick an automation tool by name recognition and then fight it for a year. A better way is to answer a few questions first. They take ten minutes, and they cut a list of dozens down to a handful.",
+   {"h":"1. What is the one job you need done?"},
+   "Write it as a sentence: \"When a form is submitted, add the person to the CRM and send a Slack message.\" Pick your most important job, not the whole wish list. A tool that does that one job well is a good start, and you can add jobs later.",
+   {"h":"2. Who will build and maintain it?"},
+   {"ul":["If the answer is \"someone who doesn't write code\", look at the visual, no-code tools and check how good their templates are.","If a developer will own it, tools that allow code steps or self-hosting give you more room.","If nobody will own it, choose the one that breaks least and tells you clearly when it does."]},
+   {"h":"3. How much will it run?"},
+   "Count how many times the job runs per month, and how many steps each run has. Pricing pages count in different units, and the next guide, [How automation pricing works](articles.html?k=guides&s=how-automation-pricing-works), explains why that matters.",
+   {"h":"4. Where must your data live?"},
+   "If customer data can't leave your own servers, or your company has strict rules, you may need a self-hosted tool. See [Self-hosted or cloud](articles.html?k=guides&s=self-hosted-or-cloud) for the trade-offs.",
+   {"h":"5. Does it connect to the tools you already use?"},
+   "Check the integrations list for the two or three apps your job touches. If an app is missing, see whether the tool can call any web API with an HTTP step. That usually covers the gap, with more work on your side.",
+   {"h":"Then try two, not ten"},
+   "Take the two or three tools that pass these questions and [compare them side by side](compare.html). Build the same small job in each, using a free plan or trial. A real job tells you more than any feature list."
+  ]
+ },
+ {
+  "k":"guides","s":"self-hosted-or-cloud","t":"Self-hosted or cloud automation?","date":"2026-10-31","read":4,
+  "d":"What you gain and what you take on when you run an automation tool yourself.",
+  "tools":["n8n","activepieces","windmill"],
+  "body":[
+   "Some automation tools run only in the vendor's cloud. Others also let you install them on your own server. The second group is smaller, and the choice between them is bigger than it looks.",
+   {"h":"What self-hosting gives you"},
+   {"ul":["Control over where data lives. Nothing passes through the vendor's servers.","Often no per-run charge from the vendor, because you pay for the server instead.","The freedom to change it, when the code is open."]},
+   {"h":"What it costs you"},
+   {"ul":["Someone has to install it, update it, back it up and watch it. When it goes down at night, that is your problem.","Security patches are your job.","Some features, such as single sign-on or audit logs, may be limited to paid plans even when you host it yourself. Read the license and the plan page."]},
+   {"h":"A fair rule of thumb"},
+   "If you have no one who can run a server, use the cloud version. If you have a developer who already runs servers, or a rule that data can't leave your network, self-hosting is worth a serious look.",
+   {"h":"Check the license"},
+   "\"Open source\" and \"source available\" are not the same. Some tools use licenses that limit commercial use or reselling. Each tool's page links to the vendor, where the license is spelled out.",
+   "See the [self-hosted collection](collections.html?c=self-hosted) and the [open-source collection](collections.html?c=open-source) for tools that allow it."
+  ]
+ },
+ {
+  "k":"guides","s":"how-automation-pricing-works","t":"How automation pricing works","date":"2026-10-31","read":4,
+  "d":"Tasks, runs, credits and seats: why two prices that look alike can differ a lot.",
+  "tools":["zapier","make","n8n"],
+  "body":[
+   "Two tools can both say \"$20 a month\" and cost very different amounts for your job. The reason is what each one counts.",
+   {"h":"The units vendors use"},
+   {"ul":["Per task or action: each step that does something counts. A job with five steps uses five.","Per run or execution: the whole job counts once, however many steps it has.","Credits or operations: a vendor-defined unit, where different steps can cost different amounts.","Per seat: you pay for each person, regardless of volume.","Flat: a fixed price for a plan, with limits on features instead of volume."]},
+   {"h":"Do the math with your own job"},
+   "Take the job from [the first guide](articles.html?k=guides&s=choose-an-automation-tool). Multiply the runs per month by the steps per run. Then look at what each vendor counts, and use the matching number. A job that runs 2,000 times a month with five steps is 2,000 runs on one tool and 10,000 tasks on another.",
+   {"h":"Things pricing pages leave in small print"},
+   {"ul":["Annual billing is often cheaper than monthly. Check which one the headline price is.","Prices may be in a currency other than yours.","Features like single sign-on, longer history or more team members often sit on higher plans.","Going over your limit can pause your jobs or bill you extra. Find out which."]},
+   "Each tool's Pricing tab shows the plans as the vendor lists them, the date we checked, and a link to the page we used. Always confirm on the vendor's page before you buy."
+  ]
+ },
+ {
+  "k":"guides","s":"moving-between-tools","t":"Moving from one automation tool to another","date":"2026-10-31","read":4,
+  "d":"A careful order of steps for switching tools without double-sending an email or dropping a job.",
+  "tools":["zapier","n8n","activepieces"],
+  "body":[
+   "Switching tools is mostly careful bookkeeping. Few automation tools can import another tool's jobs, so you are usually rebuilding them. The risk is not the rebuild. It is the day both versions run, or neither does.",
+   {"ol":["List every job the old tool runs, with what triggers it and what it touches.","Rank them by how much it hurts if one fails. Start with the least important.","Write down each job's settings and credentials, because you will re-enter them.","Rebuild one job in the new tool and test it with sample data.","Before running both versions on live data, switch the old one off or make one of them skip anything that sends email, charges a card or changes records. Duplicates are the most common mistake.","Cut over one job at a time, and watch the first few runs.","Keep the old plan for a month, on the lowest tier, in case something turns out to be missing."]},
+   "For a specific pair of tools, the [switching guides](switch.html) show how the two compare on price, platforms and integrations, and give this checklist alongside."
+  ]
+ },
+ {
+  "k":"blog","s":"how-we-check-prices","t":"How we check prices","date":"2026-10-31","read":3,
+  "d":"Where our prices come from, and what we do when a vendor makes them hard to find.",
+  "tools":[],
+  "body":[
+   "A price on a directory is only worth something if you can see where it came from. This is how we handle it.",
+   {"h":"What we do"},
+   "For each tool we open the vendor's own pricing page and copy the plans as the vendor lists them. We record the plan names, the prices, and short notes such as \"billed annually\". Then we record the date and the address of the page we used. All three show on the tool's Pricing tab.",
+   {"h":"When a page can't be read"},
+   "Some pricing pages hide the numbers behind a login, a calculator or a country picker. When we can't read one, we say so on the tool's page. Any number there comes from a third source, is marked as unverified, and tells you to check the vendor. We would rather show a gap than hide it.",
+   {"h":"What we don't do"},
+   "We don't convert currencies. If a vendor lists prices in euros, the page says euros. We also don't guess at what a plan will cost at your volume. [How automation pricing works](articles.html?k=guides&s=how-automation-pricing-works) explains how to work that out.",
+   {"h":"Found a wrong one?"},
+   "Prices change often. If something is off, [tell us](contact.html) which tool and what you saw on the vendor's page."
+  ]
+ },
+ {
+  "k":"blog","s":"whats-real","t":"What's real and what's still a placeholder","date":"2026-10-31","read":3,
+  "d":"A plain list of which parts of the site are checked and which are still samples.",
+  "tools":[],
+  "body":[
+   "A directory is useful only if you know how far to trust it. Here is where we stand today.",
+   {"h":"Checked against the vendor"},
+   {"ul":["Each tool's official website address.","Prices and plans, for the tools that show a check date on their Pricing tab."]},
+   {"h":"Still a placeholder"},
+   {"ul":["Star ratings and review counts.","The sample reviews on each tool page.","The feature checklists on the Features tab.","Logos. Tools show a monogram for now.","Screenshots. The illustrations are drawings, not the real product."]},
+   "Each of these is labelled on the page where it appears, so nobody mistakes a sample for a fact.",
+   {"h":"What reviews you write do"},
+   "When you write a review, a person reads it before it appears. Until then only you see it, marked \"Pending review\". It never gets a \"verified\" label, because we can't confirm who wrote it yet.",
+   {"h":"What's next"},
+   "Replacing placeholders with real data comes first. Follow along in the [changelog](changelog.html), and if you can help correct a listing, [write to us](contact.html)."
+  ]
+ }
+]

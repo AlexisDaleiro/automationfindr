@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submit a tool | AutomationFindr</title>
+<meta name="description" content="Know an automation tool we're missing? Send it to us.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.sub-h{padding-bottom:clamp(20px,3vw,32px)}
+.sub-h h1{font-size:clamp(2.4rem,5.6vw,4.25rem);line-height:1;letter-spacing:-.03em}
+.sub-h p{margin-top:10px;color:var(--mute);font-size:1.0625rem;max-width:48ch}
+.sub-card{padding:clamp(20px,3vw,32px);border-radius:24px;border:1px solid var(--line);background:var(--white);box-shadow:var(--inset-hi),var(--shadow-1);max-width:var(--max-width-narrow)}
+.sub-ok[hidden]{display:none}
+.sub-ok h2{font-size:clamp(1.8rem,3.4vw,2.4rem);margin-bottom:10px}
+.sub-ok p{color:var(--mute);margin-bottom:22px}
+</style>
+</head>
+<body data-page="submit">
+<main id="main" class="page"><div class="wrap">
+  <header class="sub-h">
+    <h1>Submit a tool</h1>
+    <p>Know an automation tool we're missing? Tell us the basics. We check every submission against the vendor's own site before it goes live.</p>
+  </header>
+
+  <div class="sub-card">
+    <form class="fm" id="sform">
+      <div class="fm-2">
+        <div class="fld"><label for="s-n">Tool name</label><input id="s-n" name="name" required maxlength="60" autocomplete="off"></div>
+        <div class="fld"><label for="s-u">Website</label><input id="s-u" name="url" type="url" required placeholder="https://" autocomplete="off"></div>
+      </div>
+      <div class="fm-2">
+        <div class="fld"><label for="s-c">Category</label><select id="s-c" name="category" required><option value="">Choose…</option></select></div>
+        <div class="fld"><label for="s-p">Pricing</label><select id="s-p" name="pricing" required><option value="">Choose…</option><option>Free</option><option>Freemium</option><option>Free trial, then paid</option><option>Paid only</option><option>Open source</option><option>Not sure</option></select></div>
+      </div>
+      <div class="fld"><label for="s-d">What does it do?</label><textarea id="s-d" name="description" required minlength="20" maxlength="400" placeholder="One or two sentences, in your own words."></textarea></div>
+      <div class="fld"><label for="s-e">Your email</label><input id="s-e" name="email" type="email" required autocomplete="email" placeholder="your@email.com"><small>Only used if we need to ask a question. Never published.</small></div>
+      <label class="fld chk"><input type="checkbox" name="affiliated" value="yes"><span>I work on or own this tool.</span></label>
+      <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="fm-act"><button class="btn" type="submit">Send tool</button><p class="fstat" id="sstat" role="status" aria-live="polite"></p></div>
+    </form>
+    <div class="sub-ok" id="ok" role="status" hidden>
+      <h2>Got it. Thank you.</h2>
+      <p>We'll look at it soon. If it fits, it joins the directory with its pricing checked against the vendor.</p>
+      <button class="btn ghost" type="button" id="again">Submit another</button>
+    </div>
+  </div>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+AF.ready.then(()=>{
+'use strict';
+const {$,esc,CATS}=AF;
+const form=$('#sform'), stat=$('#sstat'), btn=$('button[type=submit]',form), ok=$('#ok');
+$('#s-c').insertAdjacentHTML('beforeend',AF.GROUPS.map(([g,c])=>`<optgroup label="${esc(c.n)}"><option>${esc(c.n)}</option>${Object.values(CATS).filter(x=>x.g===g).map(x=>`<option>${esc(x.n)}</option>`).join('')}</optgroup>`).join('')+'<option>Something else</option>');
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!form.reportValidity()) return;
+  btn.disabled=true; stat.className='fstat'; stat.textContent='Sending…';
+  try{ await AF.submitForm('tool',form); }
+  catch(err){ btn.disabled=false; stat.className='fstat err'; stat.textContent=AF.failMsg(err); return; }
+  form.hidden=true; ok.hidden=false;
+});
+$('#again').addEventListener('click',()=>{ form.reset(); form.hidden=false; ok.hidden=true; btn.disabled=false; stat.textContent=''; $('#s-n').focus(); });
+});
+</script>
+</body>
+</html>

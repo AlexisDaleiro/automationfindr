@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guides | AutomationFindr</title>
+<meta name="description" content="Plain-language guides and notes on choosing automation tools.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.art-h h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.04;letter-spacing:-.025em;max-width:20ch}
+.art-h .meta{margin-top:14px;font-family:var(--mono);font-size:.8125rem}
+.art-h p.lead{margin-top:14px;color:var(--mute);font-size:1.125rem;max-width:52ch}
+.art-tools{margin-top:clamp(40px,6vw,64px);padding-top:clamp(24px,4vw,40px);border-top:1px solid var(--line)}
+.art-tools h2{font-size:clamp(1.7rem,3vw,2.2rem);margin-bottom:20px}
+</style>
+</head>
+<body data-page="guides">
+<main id="main" class="page">
+<script>
+/* sets the active menu item before shared.js builds it. Lives inside <main>: shared.js anchors the footer to the first script that is a direct child of <body> */
+document.body.dataset.page=new URLSearchParams(location.search).get('k')==='blog'?'blog':'guides';
+</script>
+<div class="wrap" id="app"></div></main>
+
+<script src="shared.js"></script>
+<script>
+'use strict';
+Promise.all([AF.ready,fetch('data/articles.json').then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })]).then(([,A])=>{
+const {$,esc,byId,card,observe,ARROW}=AF;
+const q=new URLSearchParams(location.search), kind=q.get('k')==='blog'?'blog':'guides', slug=q.get('s');
+const NAME={guides:'Guides',blog:'Blog'}, INTRO={guides:'Plain-language help for choosing and switching automation tools.',blog:'Notes on how the directory works and what we are changing.'};
+const date=d=>new Date(d+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+/* **text** is not supported on purpose; only [text](relative-url) links, and a colon in the URL is rejected */
+const inline=s=>esc(s).replace(/\[([^\]]+)\]\(([^):\s]+)\)/g,'<a href="$2">$1</a>');
+const block=b=>typeof b==='string'?`<p>${inline(b)}</p>`:b.h?`<h2>${esc(b.h)}</h2>`:b.ul?`<ul>${b.ul.map(x=>`<li>${inline(x)}</li>`).join('')}</ul>`:`<ol>${b.ol.map(x=>`<li>${inline(x)}</li>`).join('')}</ol>`;
+const app=$('#app');
+const back=`<a class="crumb" href="articles.html?k=${kind}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>${NAME[kind]}</a>`;
+
+if(slug){
+  const a=A.find(x=>x.s===slug);
+  if(!a){
+    document.title='Not found | AutomationFindr';
+    app.innerHTML=`<div class="empty"><h2>We couldn’t find that article.</h2><p>It may have moved, or the link is off by a letter.</p><a class="btn" href="articles.html?k=${kind}">Back to ${NAME[kind].toLowerCase()}</a></div>`;
+  }else{
+    document.title=`${a.t} | AutomationFindr`;
+    $('meta[name=description]').content=a.d;
+    const tools=a.tools.map(byId).filter(Boolean);
+    app.innerHTML=`<a class="crumb" href="articles.html?k=${a.k}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>${NAME[a.k]}</a>
+     <header class="ph art-h"><h1>${esc(a.t)}</h1><p class="lead">${esc(a.d)}</p><p class="meta"><time datetime="${a.date}">${date(a.date)}</time> · ${a.read} min read</p></header>
+     <article class="prose">${a.body.map(block).join('')}</article>
+     ${tools.length?`<section class="art-tools" aria-labelledby="at"><h2 id="at">Tools mentioned</h2><div class="cgrid">${tools.map((t,i)=>card(t,i)).join('')}</div></section>`:''}`;
+    observe(app);
+  }
+}else{
+  document.title=`${NAME[kind]} | AutomationFindr`;
+  const list=A.filter(x=>x.k===kind).sort((a,b)=>b.date.localeCompare(a.date));
+  app.innerHTML=`<header class="ph"><h1>${NAME[kind]}</h1><p>${INTRO[kind]}</p></header>
+   <div class="cgrid">${list.map((a,i)=>`<a class="lcard rv" style="--i:${i%5}" href="articles.html?k=${a.k}&amp;s=${a.s}"><h2>${esc(a.t)}</h2><p>${esc(a.d)}</p><span class="meta">${date(a.date)} · ${a.read} min read</span></a>`).join('')}</div>
+   <p style="margin-top:32px"><a class="link" href="articles.html?k=${kind==='blog'?'guides':'blog'}"><span>${kind==='blog'?'Read the guides':'Read the blog'}</span>${ARROW}</a></p>`;
+  observe(app);
+}
+}).catch(e=>{ console.error(e); document.getElementById('app').innerHTML='<div class="empty"><h2>We couldn’t load this page.</h2><p>Reload, or try again in a minute.</p></div>'; });
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switching guides | AutomationFindr</title>
+<meta name="description" content="Moving from one automation tool to another: price, platforms, integrations and a step-by-step checklist.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.sw{max-width:var(--max-width-narrow)}
+.sw>section+section{margin-top:clamp(32px,5vw,48px)}
+.sw h2{font-size:clamp(1.6rem,3vw,2.1rem);line-height:1.15;margin-bottom:12px}
+.sw h3{font:600 1rem var(--sans);margin:18px 0 6px}
+.sw p,.sw li{color:#3a3a3a}
+.sw ul,.sw ol{padding-left:1.3em}.sw ul{list-style:disc}
+.sw li+li{margin-top:6px}
+.sw a:not(.btn):not(.link){color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+.vs{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:20px}
+.vs-t{display:flex;align-items:center;gap:10px;font-weight:600}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+table{width:100%;border-collapse:collapse;font-size:.9375rem}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+tr:last-child th,tr:last-child td{border-bottom:0}
+thead th{background:var(--sand)}
+tbody th{font-weight:500;color:var(--mute);white-space:nowrap}
+.tiers li{display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--line)}
+.tiers{padding:0!important;list-style:none!important}
+.tiers span{color:var(--mute);font-size:.875rem}
+.tiers b{font:500 .875rem var(--mono);white-space:nowrap}
+.pk{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:var(--max-width-narrow);align-items:end}
+.sug{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+</style>
+</head>
+<body data-page="switch">
+<main id="main" class="page"><div class="wrap" id="app"></div></main>
+
+<script src="shared.js"></script>
+<script>
+AF.ready.then(()=>{
+'use strict';
+const {$,esc,T,byId,lg,startLabel,freeLabel,platforms,toolUrl,cmpUrl,CATS,ARROW}=AF;
+const q=new URLSearchParams(location.search), A=byId(q.get('from')), B=byId(q.get('to'));
+const app=$('#app');
+const SUG=[['zapier','n8n'],['zapier','make'],['zapier','activepieces'],['make','n8n'],['lemlist','instantly'],['woodpecker','instantly']];
+const list=a=>a.length?`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'';
+const sw=(a,b)=>`switch.html?from=${a}&amp;to=${b}`;
+const back=`<a class="crumb" href="switch.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>All switching guides</a>`;
+
+if(!A||!B||A===B){
+  const opts=sel=>T.map(t=>`<option value="${t.id}"${t.id===sel?' selected':''}>${esc(t.n)}</option>`).join('');
+  document.title='Switching guides | AutomationFindr';
+  app.innerHTML=`<header class="ph"><h1>Switching guides</h1><p>Pick the tool you use now and the one you are thinking about. We line them up and give you a checklist for the move.</p></header>
+   ${(q.get('from')||q.get('to'))?'<p class="fstat err" role="alert" style="margin-bottom:12px">Pick two different tools from the list.</p>':''}
+   <form class="pk" id="pk"><div class="fld"><label for="f">Switching from</label><select id="f">${opts(q.get('from')||'zapier')}</select></div>
+   <div class="fld"><label for="t">Switching to</label><select id="t">${opts(q.get('to')||'n8n')}</select></div>
+   <button class="btn" type="submit">Show the guide</button></form>
+   <h2 style="font-size:1.6rem;margin-top:40px">Popular moves</h2>
+   <div class="sug">${SUG.map(([a,b])=>`<a class="chip" href="${sw(a,b)}">${esc(byId(a).n)} to ${esc(byId(b).n)}</a>`).join('')}</div>`;
+  $('#pk').addEventListener('submit',e=>{ e.preventDefault(); location.href=`switch.html?from=${$('#f').value}&to=${$('#t').value}`; });
+}else{
+  document.title=`Switching from ${A.n} to ${B.n} | AutomationFindr`;
+  $('meta[name=description]').content=`Moving from ${A.n} to ${B.n}: price, platforms, integrations and a step-by-step checklist.`;
+  const norm=s=>s.toLowerCase(), bi=new Set(B.int.map(norm));
+  const both=A.int.filter(x=>bi.has(norm(x))), only=A.int.filter(x=>!bi.has(norm(x)));
+  const same=A.cat===B.cat, pr=B.pricing;
+  const row=(k,fn)=>`<tr><th scope="row">${k}</th><td>${fn(A)}</td><td>${fn(B)}</td></tr>`;
+  app.innerHTML=`${back}
+   <header class="ph"><h1>Switching from ${esc(A.n)} to ${esc(B.n)}</h1>
+   <div class="vs"><span class="vs-t">${lg(A)}${esc(A.n)}</span>${ARROW}<span class="vs-t">${lg(B)}${esc(B.n)}</span></div></header>
+   <div class="sw">
+   <section><h2>At a glance</h2>
+    ${same?`<p>Both are in ${esc(CATS[A.cat].n)}, so most jobs map across one to one.</p>`:`<p>${esc(A.n)} is in ${esc(CATS[A.cat].n)} and ${esc(B.n)} is in ${esc(CATS[B.cat].n)}. They do different things, so expect to rebuild, not to move.</p>`}
+    <div class="tw" style="margin-top:14px"><table><thead><tr><th></th><th scope="col">${esc(A.n)}</th><th scope="col">${esc(B.n)}</th></tr></thead><tbody>
+     ${row('Starts at',startLabel)}${row('Free option',freeLabel)}${row('Platforms',t=>esc(platforms(t).join(', ')))}
+     ${row('Website',t=>`<a href="${esc(t.url)}" rel="noopener" target="_blank">${esc(t.url.replace(/^https?:\/\//,''))}</a>`)}
+    </tbody></table></div>
+   </section>
+   <section><h2>What ${esc(B.n)} costs</h2>
+    <ul class="tiers">${pr.tiers.map(t=>`<li><div><b style="font-family:var(--sans);font-size:.9375rem">${esc(t.n)}</b><br><span>${esc(t.d)}</span></div><b>${esc(t.p)}</b></li>`).join('')}</ul>
+    <p class="meta" style="margin-top:12px">${pr.verified?`Checked on the vendor’s page on ${esc(pr.verified)}.`:'Not confirmed on the vendor’s page. Check it before you decide.'} ${pr.note?esc(pr.note):''} <a href="${esc(pr.src)}" rel="noopener" target="_blank">Pricing page</a></p>
+   </section>
+   <section><h2>Worth knowing</h2>
+    <h3>Why people pick ${esc(B.n)}</h3>${list(B.love)}${B.uniq?`<p style="margin-top:8px">${esc(B.uniq)}.</p>`:''}
+    <h3>What to watch for on ${esc(B.n)}</h3>${list(B.gripe)}
+    <h3>What you may miss from ${esc(A.n)}</h3>${list(A.love)}
+    <p class="meta" style="margin-top:14px">These are our editorial notes, not a hands-on test. ${esc(B.n)} suits: ${esc(B.best.charAt(0).toLowerCase()+B.best.slice(1))}.</p>
+   </section>
+   <section><h2>Your integrations</h2>
+    ${both.length?`<p>Both list: ${esc(both.join(', '))}.</p>`:'<p>The example integrations we list for the two tools don’t overlap.</p>'}
+    ${only.length?`<p style="margin-top:10px">Listed for ${esc(A.n)} but not in our notes for ${esc(B.n)}: ${esc(only.join(', '))}. ${esc(B.n)} may still support them, since our lists are examples and not complete. Check ${esc(B.n)}’s integrations page for the apps you rely on.</p>`:''}
+   </section>
+   <section><h2>A safe order for the move</h2>
+    <ol>
+     <li>List every job you run in ${esc(A.n)}: what starts it, what it changes, and who relies on it.</li>
+     <li>Rank them by how much it hurts if one fails. Move the least important first.</li>
+     <li>Write down each job’s settings and note which credentials you will need to connect again.</li>
+     <li>Rebuild one job in ${esc(B.n)} and test it with sample data.</li>
+     <li>Before you run both on live data, switch the old job off, or make one of them skip anything that sends email, charges a card or edits records. Duplicates are the most common mistake.</li>
+     <li>Move one job at a time and watch its first few runs.</li>
+     <li>Keep ${esc(A.n)} on its cheapest plan for a month, in case something turns out to be missing.</li>
+    </ol>
+    <p style="margin-top:14px">More on this in <a href="articles.html?k=guides&amp;s=moving-between-tools">Moving from one automation tool to another</a>.</p>
+   </section>
+   <section style="display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn" href="${cmpUrl([A.id,B.id])}">Compare them side by side</a>
+    <a class="btn ghost" href="${toolUrl(B.id)}">About ${esc(B.n)}</a>
+    <a class="btn ghost" href="${sw(B.id,A.id)}">Switching the other way</a>
+   </section>
+   </div>`;
+}
+});
+</script>
+</body>
+</html>

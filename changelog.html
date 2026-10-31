@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changelog | AutomationFindr</title>
+<meta name="description" content="What changed on AutomationFindr, newest first.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.log{max-width:var(--max-width-narrow);display:grid;gap:0}
+.log article{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 24px;padding:28px 0;border-top:1px solid var(--line)}
+.log time{font:400 .8125rem var(--mono);color:var(--mute);padding-top:.5em}
+.log h2{font-size:1.7rem;line-height:1.15}
+.log ul{list-style:disc;padding-left:1.2em;margin-top:12px}
+.log li+li{margin-top:6px}
+.log a{color:var(--teal);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:600px){.log article{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body data-page="changelog">
+<main id="main" class="page"><div class="wrap">
+  <header class="ph">
+    <h1>Changelog</h1>
+    <p>What changed on the site, newest first.</p>
+  </header>
+
+  <div class="log">
+    <article>
+      <time datetime="2026-10-31">31 Oct 2026</time>
+      <div>
+        <h2>The rest of the pages</h2>
+        <ul>
+          <li>Collections: curated lists, such as self-hosted tools, free-to-start tools and new arrivals.</li>
+          <li>Guides and a blog.</li>
+          <li>"Switching from X to Y" guides, linked from each tool's Alternatives tab.</li>
+          <li>About, Contact, Privacy and Terms.</li>
+          <li><a href="api.html">API docs</a> for the open data file, and this changelog.</li>
+          <li>A 404 page that fixes itself, if you click.</li>
+        </ul>
+      </div>
+    </article>
+    <article>
+      <time datetime="2026-10-31">31 Oct 2026</time>
+      <div>
+        <h2>Real data and actions</h2>
+        <ul>
+          <li>All tools now load from <code class="code-i">data/tools.json</code>, each with its official site and a pricing record: plans, the date we checked, and the page we used.</li>
+          <li>"Visit website" goes to the vendor's real site.</li>
+          <li>Saved tools, with Compare from the Saved page.</li>
+          <li>Newsletter, Submit a tool and Write a review forms. Reviews wait for a person to read them before they appear.</li>
+          <li>Removed numbers on the home page that we couldn't back up.</li>
+        </ul>
+      </div>
+    </article>
+    <article>
+      <time datetime="2026-10-31">31 Oct 2026</time>
+      <div>
+        <h2>First public build</h2>
+        <ul>
+          <li>Home with instant search, categories and editor's picks.</li>
+          <li>Tool pages with Overview, Features, Pricing, Reviews and Alternatives.</li>
+          <li>Compare up to three tools side by side.</li>
+          <li>Category pages with filters, sorting and a grid or list view.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</div></main>
+
+<script src="shared.js"></script>
+</body>
+</html>

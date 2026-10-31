@@ -333,7 +333,7 @@
 <!-- ======================= 1. HERO ======================= -->
 <section class="hero" id="top" aria-labelledby="h1">
   <div class="wrap">
-    <p class="pill"><span class="live" aria-hidden="true"></span>2,412 tools indexed. Updated 3 hours ago.</p>
+    <p class="pill"><span class="live" aria-hidden="true"></span><span id="heroN"></span> tools indexed.</p>
     <h1 id="h1" aria-label="Find the exact automation tool you need.">
       <span class="w" aria-hidden="true"><span style="--i:0">Find</span></span>
       <span class="w" aria-hidden="true"><span style="--i:1">the</span></span>
@@ -373,7 +373,6 @@
       <button class="chip" type="button" data-q="zapier alternatives" style="--i:2"><i>#</i>Zapier alternatives</button>
       <button class="chip" type="button" data-q="free" style="--i:3"><i>#</i>Free</button>
     </div>
-    <p class="now"><span class="live" aria-hidden="true"></span><span><span id="nowN">184</span> people searching right now</span></p>
     <div class="ruler" aria-hidden="true"></div>
   </div>
 </section>
@@ -481,11 +480,9 @@
 <section class="stats-sec" aria-label="The directory in numbers">
   <div class="wrap">
     <div class="ticket">
-      <div class="stat rv rv-drop" style="--i:0"><b>2,412</b><span>tools</span></div>
-      <div class="stat rv rv-drop" style="--i:1"><b>48</b><span>categories</span></div>
-      <div class="stat rv rv-drop" style="--i:2"><b>Weekly</b><span>updates</span></div>
-      <div class="stat rv rv-drop" style="--i:3"><b>12,000+</b><span>searches a month</span></div>
-      <div class="stat rv rv-drop" style="--i:4"><b>0</b><span>paid placements</span></div>
+      <div class="stat rv rv-drop" style="--i:0"><b id="statN"></b><span>tools</span></div>
+      <div class="stat rv rv-drop" style="--i:1"><b id="statC"></b><span>categories</span></div>
+      <div class="stat rv rv-drop" style="--i:2"><b>0</b><span>paid placements</span></div>
     </div>
   </div>
 </section>
@@ -514,17 +511,14 @@
       <p class="lede">No spam. No “AI will replace you” panic. Just good tools.</p>
       <form class="nform" id="nform" novalidate>
         <label class="sr" for="email">Email address</label>
-        <input id="email" type="email" required placeholder="your@email.com" autocomplete="email">
+        <input id="email" name="email" type="email" required placeholder="your@email.com" autocomplete="email">
+        <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="nbtn" type="submit"><span class="clip"></span><span class="lbl">Subscribe</span>
           <svg class="chk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           <i class="spark" style="--x:-34px;--y:-30px;background:#F59E0B"></i><i class="spark" style="--x:38px;--y:-26px;background:#0D9488"></i><i class="spark" style="--x:-22px;--y:32px;background:#8B5CF6"></i><i class="spark" style="--x:30px;--y:30px;background:#F59E0B"></i>
         </button>
       </form>
       <p class="nstat" id="nstat" role="status" aria-live="polite"></p>
-      <figure class="quote">
-        <blockquote><p>“Legit the only newsletter I actually read.”</p></blockquote>
-        <cite>A reader on Twitter (placeholder until we have a real quote)</cite>
-      </figure>
     </div>
   </div>
 </section>
@@ -532,16 +526,16 @@
 
 <script src="shared.js"></script>
 <script>
-(()=>{
+AF.ready.then(()=>{
 'use strict';
-const {$,$$,esc,RM,CATS,T,byId,lg,stars,price,ago,fmt,ARROW,newest,toolUrl,catUrl,observe,rank}=AF;
+const {$,$$,esc,RM,CATS,GROUPS,T,byId,lg,stars,price,ago,fmt,ARROW,newest,toolUrl,catUrl,observe,rank,rankCats}=AF;
 /* ==========================================================================
    RENDER: categories, mega menu, picks, fresh, use cases
    ========================================================================== */
-const catEntries=Object.entries(CATS);
+const catEntries=GROUPS;
 $('#river').innerHTML=catEntries.map(([k,v],i)=>
  `<a class="cat rv" href="${catUrl(k)}" style="--c:${v.c};--i:${i%5}" data-anim="${['rot','bounce','pop'][i%3]}"><span class="cat-ic">${v.i}</span><span class="cat-n">${esc(v.n)}</span><span class="cat-ct">${v.ct} tools</span></a>`).join('')+
- `<a class="cat all rv" href="${catUrl()}" style="--i:4"><span class="cat-n">All 48 categories</span>${ARROW}</a>`;
+ `<a class="cat all rv" href="${catUrl()}#categories" style="--i:4"><span class="cat-n">All ${Object.keys(CATS).length} categories</span>${ARROW}</a>`;
 
 const F=byId('n8n');
 $('#featBody').innerHTML=`
@@ -563,9 +557,9 @@ $('#fresh').innerHTML=newest.slice(0,6).map((t,i)=>`
  </a>`).join('');
 
 const CASES=[
- {q:'I need to send 500 personalized cold emails without spending hours on it.',t:['instantly','lemlist','woodpecker'],l:'See all cold email tools',cat:'email'},
- {q:'I want to connect my CRM to Slack without writing code.',t:['zapier','make','tray'],l:'See all integration tools',cat:'workflow'},
- {q:'I need to auto-generate invoices from a Google Sheet.',t:['bardeen','pabbly','invoiceninja'],l:'See all document automation',cat:'finance'}
+ {q:'I need to send 500 personalized cold emails without spending hours on it.',t:['instantly','lemlist','woodpecker'],l:'See all cold email tools',cat:'cold'},
+ {q:'I want to connect my CRM to Slack without writing code.',t:['zapier','make','tray'],l:'See all integration tools',cat:'ipaas'},
+ {q:'I need to auto-generate invoices from a Google Sheet.',t:['bardeen','pabbly','invoiceninja'],l:'See all invoicing tools',cat:'invoicing'}
 ];
 $('#cases').innerHTML=CASES.map(c=>`
  <div class="case"><blockquote>“${esc(c.q)}”</blockquote>
@@ -581,6 +575,9 @@ let items=[], active=-1;
 const isOpen=()=>search.classList.contains('open');
 
 function row(t,i){
+  if(t.isCat) return `<li role="option" id="opt-${i}" data-href="${catUrl(t.k)}" style="--i:${i}" aria-selected="false"><span class="lg" style="--lc:${t.v.c}" aria-hidden="true">${t.v.i.replace('<svg','<svg width="20" height="20"')}</span>
+   <div class="tx"><b>${esc(t.v.n)}</b><small>Category, ${t.v.ct} ${t.v.ct===1?'tool':'tools'}</small></div>
+   <div class="mt"><svg class="go" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></li>`;
   return `<li role="option" id="opt-${i}" data-id="${t.id}" style="--i:${i}" aria-selected="false">${lg(t)}
    <div class="tx"><b>${esc(t.n)}${t.a<=7?'<span class="new">New</span>':''}</b><small>${esc(CATS[t.cat].n)}, ${esc(t.d)}</small></div>
    <div class="mt">${stars(t.r,1)}<span class="mono" style="font-size:.8125rem">${t.r}</span>${price(t)}
@@ -592,14 +589,14 @@ function render(){
   const v=q.value.trim();
   sfield.classList.toggle('filled',!!q.value);
   if(!v){ items=POP.map(byId); shead.textContent='Popular right now'; scount.textContent=''; }
-  else { items=rank(v).slice(0,6); shead.textContent=items.length?'Best matches':'No matches'; scount.textContent=items.length?`${items.length} shown`:''; }
+  else { items=[...rank(v).slice(0,6),...rankCats(v).slice(0,2)]; shead.textContent=items.length?'Best matches':'No matches'; scount.textContent=items.length?`${items.length} shown`:''; }
   res.innerHTML=items.length?items.map(row).join(''):
    `<li class="sempty" role="presentation"><p>Nothing here yet. Try broader terms or browse by category.</p><div class="chips">${catEntries.slice(0,5).map(([k,c])=>`<a class="chip" href="${catUrl(k)}" data-close>${esc(c.n)}</a>`).join('')}</div></li>`;
   active=-1; q.setAttribute('aria-activedescendant','');
 }
 function open(){ if(!isOpen()){ search.classList.add('open'); q.setAttribute('aria-expanded','true'); } render(); }
 function close(){ search.classList.remove('open'); q.setAttribute('aria-expanded','false'); q.setAttribute('aria-activedescendant',''); }
-function choose(id){ close(); location.href=toolUrl(id); }
+function choose(href){ close(); location.href=href; }
 function move(d){ if(!items.length) return; mark(active<0?(d>0?0:items.length-1):(active+d+items.length)%items.length); }
 
 q.addEventListener('focus',open);
@@ -607,12 +604,12 @@ q.addEventListener('input',open);
 q.addEventListener('keydown',e=>{
   if(e.key==='ArrowDown'){ e.preventDefault(); if(!isOpen()) open(); move(1); }
   else if(e.key==='ArrowUp'){ e.preventDefault(); if(!isOpen()) open(); move(-1); }
-  else if(e.key==='Enter'){ e.preventDefault(); const t=items[active>=0?active:0]; if(t&&isOpen()) choose(t.id); }
+  else if(e.key==='Enter'){ e.preventDefault(); const t=items[active>=0?active:0]; if(t&&isOpen()) choose(t.isCat?catUrl(t.k):toolUrl(t.id)); }
   else if(e.key==='Escape'){ if(isOpen()) close(); else q.blur(); }
 });
 $('#sform').addEventListener('submit',e=>e.preventDefault());
 res.addEventListener('mousedown',e=>e.preventDefault());
-res.addEventListener('click',e=>{ const li=e.target.closest('[role=option]'); if(li) choose(li.dataset.id); else if(e.target.closest('[data-close]')) close(); });
+res.addEventListener('click',e=>{ const li=e.target.closest('[role=option]'); if(li) choose(li.dataset.href||toolUrl(li.dataset.id)); else if(e.target.closest('[data-close]')) close(); });
 res.addEventListener('mousemove',e=>{ const li=e.target.closest('[role=option]'); if(li){ const n=opts().indexOf(li); if(n!==active) mark(n); } });
 $('#sclear').addEventListener('click',()=>{ q.value=''; q.focus(); render(); });
 document.addEventListener('pointerdown',e=>{ if(!search.contains(e.target)) close(); });
@@ -653,21 +650,23 @@ rL.addEventListener('click',()=>river.scrollBy({left:-stepPx(),behavior:RM?'auto
 rR.addEventListener('click',()=>river.scrollBy({left:stepPx(),behavior:RM?'auto':'smooth'}));
 
 /* ==========================================================================
-   NEWSLETTER (front-end only: no backend wired yet)
+   NEWSLETTER (POSTs to AF endpoint "newsletter", set in shared.js)
    ========================================================================== */
-const nform=$('#nform'), email=$('#email'), nstat=$('#nstat');
-nform.addEventListener('submit',e=>{
+const nform=$('#nform'), email=$('#email'), nstat=$('#nstat'), nbtn=$('.nbtn',nform);
+nform.addEventListener('submit',async e=>{
   e.preventDefault();
   if(!email.value.trim()||!email.checkValidity()){ nstat.textContent='That email looks off. Check it and try again.'; email.focus(); return; }
+  nbtn.disabled=true; nstat.textContent='Subscribing…';
+  try{ await AF.submitForm('newsletter',nform); }
+  catch(err){ nbtn.disabled=false; nstat.textContent=AF.failMsg(err); return; }
   nform.classList.add('done');
   nstat.textContent='You’re in. The first briefing lands next Tuesday.';
-  email.disabled=true; $('.nbtn',nform).disabled=true;
+  email.disabled=true;
 });
 
 
-let n=184; const nowN=$('#nowN');
-setInterval(()=>{ n=Math.max(150,Math.min(230,n+Math.round(Math.random()*6-3))); nowN.textContent=n; },5000);
-})();
+$('#heroN').textContent=$('#statN').textContent=T.length; $('#statC').textContent=Object.keys(CATS).length;
+});
 </script>
 </body>
 </html>

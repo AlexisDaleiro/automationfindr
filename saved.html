@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saved tools | AutomationFindr</title>
+<meta name="description" content="The automation tools you saved on this device.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+.shd{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;padding-bottom:clamp(20px,3vw,32px)}
+.shd h1{font-size:clamp(2.4rem,5.6vw,4.25rem);line-height:1;letter-spacing:-.03em}
+.shd p{margin-top:10px;color:var(--mute);font-size:1.0625rem;max-width:44ch}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:16px;border-top:1px solid var(--line);padding-top:clamp(20px,3vw,32px)}
+.sitem{display:flex;flex-direction:column;gap:10px}
+.sitem .tcard{flex:1}
+.sitem .btn{height:38px;font-size:.875rem}
+</style>
+</head>
+<body data-page="saved">
+<main id="main" class="page"><div class="wrap">
+  <header class="shd">
+    <div><h1>Saved tools</h1><p>Kept on this device only. Clearing your browser data removes them.</p></div>
+    <a class="btn" id="cmp" href="compare.html" hidden>Compare</a>
+  </header>
+  <div id="list" aria-live="polite"></div>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+AF.ready.then(()=>{
+'use strict';
+const {$,esc,byId,card,cmpUrl,catUrl,toast,observe}=AF;
+const list=$('#list'), cmp=$('#cmp');
+
+function draw(){
+  const tools=AF.saved().map(byId).filter(Boolean);
+  cmp.hidden=tools.length<2;
+  if(tools.length>=2){ cmp.href=cmpUrl(tools.slice(0,3).map(t=>t.id)); cmp.textContent=tools.length>3?'Compare the first 3':`Compare ${tools.length} tools`; }
+  list.innerHTML=tools.length?`<div class="sgrid">${tools.map((t,i)=>`<div class="sitem">${card(t,i)}<button class="btn ghost" type="button" data-id="${esc(t.id)}">Remove from saved</button></div>`).join('')}</div>`:
+   `<div class="empty"><h2>Nothing saved yet.</h2><p>Tap Save on any tool and it will show up here, ready to compare.</p><a class="btn" href="${catUrl()}">Browse all tools</a></div>`;
+  observe(list);
+}
+list.addEventListener('click',e=>{ const b=e.target.closest('button[data-id]'); if(!b) return; AF.toggleSaved(b.dataset.id); toast(`${byId(b.dataset.id).n} removed from saved.`); draw(); });
+draw();
+});
+</script>
+</body>
+</html>

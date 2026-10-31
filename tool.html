@@ -133,6 +133,10 @@
 .rev-h .ver svg{width:11px;height:11px}
 .rev-h .mute{color:var(--mute)}
 .rev p{font-size:1rem;color:#333}
+.wr{margin-bottom:22px}
+.wr>summary{list-style:none;cursor:pointer;display:inline-flex}
+.wr>summary::-webkit-details-marker{display:none}
+.wr .fm{margin-top:18px;padding:22px;border-radius:20px;border:1px solid var(--line);background:var(--white);box-shadow:var(--inset-hi),var(--shadow-1)}
 
 .alts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .alt{display:flex;flex-direction:column;gap:12px}
@@ -175,7 +179,7 @@
 
 <script src="shared.js"></script>
 <script>
-(()=>{
+AF.ready.then(()=>{
 'use strict';
 const {$,$$,esc,RM,CATS,T,FEAT,has,byId,lg,stars,isFree,price,priceNum,startLabel,freeLabel,platforms,ARROW,toolUrl,catUrl,cmpUrl,tiers,reviews,hash,card,toast,observe,fmt}=AF;
 const app=$('#app');
@@ -201,9 +205,11 @@ function render(){
   const alts=(same.length>=2?same:[...new Set([...same,...tagSim])]).slice(0,4);
   const similar=[...new Set([...same,...tagSim])].slice(0,10);
   const revs=reviews(t);
-  const saved=()=>{ try{ return JSON.parse(localStorage.getItem('af:saved')||'[]'); }catch(e){ return []; } };
-  const isSaved=()=>saved().includes(t.id);
-  const toggleSave=()=>{ try{ const s=saved(), i=s.indexOf(t.id); i<0?s.push(t.id):s.splice(i,1); localStorage.setItem('af:saved',JSON.stringify(s)); }catch(e){} };
+  const isSaved=()=>AF.isSaved(t.id);
+  /* reviews sent from this device: kept locally, labelled pending until moderated */
+  const mineKey=`af:review:${t.id}`;
+  const mine=()=>{ try{ const m=JSON.parse(localStorage.getItem(mineKey)||'[]'); return Array.isArray(m)?m:[]; }catch(e){ return []; } };
+  const addMine=r=>{ try{ localStorage.setItem(mineKey,JSON.stringify([r,...mine()])); }catch(e){} };
   let back=false; try{ back=!!document.referrer&&new URL(document.referrer).origin===location.origin&&document.referrer!==location.href; }catch(e){}
 
   const palette=['#2563EB','#7C3AED','#0F766E','#B45309','#BE3A5C','#3B6BA5','#4D7C0F','#9D3F8F'];
@@ -247,7 +253,7 @@ function render(){
        </div>
        <p class="tline">${esc(t.d)}</p>
        <div class="tact">
-         <a class="btn" href="#">Visit website ${EXT}</a>
+         <a class="btn" href="${esc(t.url)}" target="_blank" rel="noopener noreferrer">Visit website ${EXT}</a>
          <a class="btn ghost" href="${cmpUrl([t.id])}">Compare with…</a>
          <button class="btn ghost" id="save" type="button" aria-pressed="${isSaved()}">${HEART(isSaved())}<span>${isSaved()?'Saved':'Save'}</span></button>
        </div>
@@ -263,7 +269,7 @@ function render(){
          <div><dt>Platform</dt><dd>${platforms(t).join(', ')}</dd></div>
          <div><dt>Founded</dt><dd>${t.f}</dd></div>
          <div><dt>Open source</dt><dd>${t.fl.includes('os')?'Yes':'No'}</dd></div></dl></div>
-       <div><h2>Categories</h2><div class="pills"><a href="${catUrl(t.cat)}">${esc(cat.n)}</a>${t.tg.map(g=>`<a href="${catUrl(t.cat)}">${esc(g)}</a>`).join('')}</div></div>
+       <div><h2>Categories</h2><div class="pills"><a href="${catUrl(t.cat)}">${esc(cat.n)}</a>${(t.sub||[]).map(k=>`<a href="${catUrl(k)}">${esc(CATS[k].n)}</a>`).join('')}${t.tg.map(g=>`<a href="${catUrl(t.cat)}">${esc(g)}</a>`).join('')}</div></div>
        <div><h2>Integrates with</h2><div class="ints">${ints}</div></div>
      </aside>
 
@@ -292,9 +298,9 @@ function render(){
        <section class="panel" role="tabpanel" id="p-pricing" aria-labelledby="tab-pricing" hidden>
          <h2>Pricing</h2>
          <span class="free-ind ${isFree(t)?'':'paid'}">${isFree(t)?CHECK:CROSS}${freeLabel(t)}</span>
-         <div class="tiers">${tr.map(x=>`<div class="tier${x.hl?' hl':''}"><h3>${esc(x.n)}</h3><div class="pr">${esc(x.p)}</div><p>${esc(x.d)}</p>${x.hl?'<span class="tag">Most picked</span>':''}</div>`).join('')}</div>
+         <div class="tiers">${tr.map(x=>`<div class="tier"><h3>${esc(x.n)}</h3><div class="pr">${esc(x.p)}</div>${x.d?`<p>${esc(x.d)}</p>`:''}</div>`).join('')}</div>
          <div class="vs"><h3>Starting price next to its closest alternatives</h3>${vsRows}</div>
-         <p class="note">Illustrative pricing for this prototype. Confirm on the vendor's site before you buy.</p>
+         <p class="note">${t.pricing.verified?`Checked against <a href="${esc(t.pricing.src)}" target="_blank" rel="noopener noreferrer">the vendor's page</a> on ${new Date(t.pricing.verified).toLocaleDateString('en-US',{dateStyle:'long',timeZone:'UTC'})}.`:'Not verified against the vendor page yet.'} ${esc(t.pricing.note)} Confirm on the vendor's site before you buy.</p>
        </section>
 
        <section class="panel" role="tabpanel" id="p-reviews" aria-labelledby="tab-reviews" hidden>
@@ -311,13 +317,30 @@ function render(){
            <div class="grp" data-g="r"><span>Rating</span>${[['all','All'],['5','5 stars'],['4','4 stars'],['3','3 or less']].map(([v,l],i)=>`<button class="chip" type="button" data-v="${v}" aria-pressed="${i===0}">${l}</button>`).join('')}</div>
            <div class="grp" data-g="u"><span>Reviewer</span>${['all','SMB','Enterprise','Freelancer'].map((v,i)=>`<button class="chip" type="button" data-v="${v}" aria-pressed="${i===0}">${v==='all'?'All':v}</button>`).join('')}</div>
          </div>
+         <details class="wr" id="wr">
+           <summary class="btn ghost">Write a review</summary>
+           <form class="fm" id="rform">
+             <div class="fm-2">
+               <div class="fld"><label for="rv-r">Rating</label><select id="rv-r" name="rating" required><option value="">Choose…</option><option value="5">5, excellent</option><option value="4">4, good</option><option value="3">3, okay</option><option value="2">2, poor</option><option value="1">1, avoid</option></select></div>
+               <div class="fld"><label for="rv-u">You are a</label><select id="rv-u" name="reviewer" required><option>SMB</option><option>Freelancer</option><option>Enterprise</option></select></div>
+             </div>
+             <div class="fld"><label for="rv-t">Your review</label><textarea id="rv-t" name="text" required minlength="20" maxlength="1200" placeholder="What did you use it for, and what would you tell a friend?"></textarea></div>
+             <div class="fm-2">
+               <div class="fld"><label for="rv-n">Name shown <small>(optional)</small></label><input id="rv-n" name="name" maxlength="40" autocomplete="given-name" placeholder="Anonymous"></div>
+               <div class="fld"><label for="rv-e">Email</label><input id="rv-e" name="email" type="email" required autocomplete="email" placeholder="your@email.com"><small>Never shown. Used to confirm you really used the tool.</small></div>
+             </div>
+             <input class="hp" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+             <div class="fm-act"><button class="btn" type="submit">Send review</button><p class="fstat" id="rstat" role="status" aria-live="polite"></p></div>
+           </form>
+         </details>
+         <p class="note" style="margin:0 0 6px">The reviews below are illustrative samples. New reviews are read by a person before they are published.</p>
          <div id="rlist" aria-live="polite"></div>
        </section>
 
        <section class="panel" role="tabpanel" id="p-alternatives" aria-labelledby="tab-alternatives" hidden>
          <h2>Alternatives</h2>
          <p style="color:var(--mute);margin:-6px 0 22px;max-width:var(--max-width-narrow)">Closest options by category and rating, with the numbers that usually decide it.</p>
-         <div class="alts">${alts.map(a=>`<div class="alt">${card(a).replace(' rv"','"')}<div class="alt-f"><span class="vs-l">${esc(a.n)} <b>${startLabel(a)}</b> vs ${esc(t.n)} <b>${startLabel(t)}</b></span><a class="link" href="${cmpUrl([t.id,a.id])}"><span>Compare</span>${ARROW}</a></div><a class="link" style="padding:0 4px;font-size:.875rem" href="#"><span>Switching from ${esc(a.n)} to ${esc(t.n)}</span>${ARROW}</a></div>`).join('')}</div>
+         <div class="alts">${alts.map(a=>`<div class="alt">${card(a).replace(' rv"','"')}<div class="alt-f"><span class="vs-l">${esc(a.n)} <b>${startLabel(a)}</b> vs ${esc(t.n)} <b>${startLabel(t)}</b></span><a class="link" href="${cmpUrl([t.id,a.id])}"><span>Compare</span>${ARROW}</a></div><a class="link" style="padding:0 4px;font-size:.875rem" href="switch.html?from=${a.id}&to=${t.id}"><span>Switching from ${esc(a.n)} to ${esc(t.n)}</span>${ARROW}</a></div>`).join('')}</div>
        </section>
      </div>
    </div>
@@ -330,7 +353,7 @@ function render(){
   $('#crumb').addEventListener('click',e=>{ if(back){ e.preventDefault(); history.back(); } });
 
   const sv=$('#save');
-  sv.addEventListener('click',()=>{ toggleSave(); const s=isSaved(); sv.setAttribute('aria-pressed',s); sv.innerHTML=`${HEART(s)}<span>${s?'Saved':'Save'}</span>`; toast(s?`${t.n} saved on this device.`:`${t.n} removed from saved.`); });
+  sv.addEventListener('click',()=>{ const s=AF.toggleSaved(t.id); sv.setAttribute('aria-pressed',s); sv.innerHTML=`${HEART(s)}<span>${s?'Saved':'Save'}</span>`; toast(s?`${t.n} saved on this device.`:`${t.n} removed from saved.`); });
 
   /* tabs: arrow keys, Home/End, URL hash */
   const tabEls=$$('[role=tab]'), panels=$$('[role=tabpanel]');
@@ -350,13 +373,27 @@ function render(){
   /* review filters */
   const f={r:'all',u:'all'}, rl=$('#rlist');
   function showRevs(){
-    const list=revs.filter(r=>(f.r==='all'||(f.r==='3'?r.r<=3:r.r===+f.r))&&(f.u==='all'||r.u===f.u));
-    rl.innerHTML=list.length?list.map(r=>`<article class="rev"><div class="rev-h">${stars(r.r,1)}<b>${esc(r.n)}</b><span class="tagpill">${r.u}</span>${r.v?`<span class="ver">${CHECK}Verified</span>`:''}<span class="mute">${r.days} days ago</span></div><p>${esc(r.t)}</p></article>`).join(''):
+    const list=[...mine().map(r=>({...r,pending:true})),...revs].filter(r=>(f.r==='all'||(f.r==='3'?r.r<=3:r.r===+f.r))&&(f.u==='all'||r.u===f.u));
+    rl.innerHTML=list.length?list.map(r=>`<article class="rev"><div class="rev-h">${stars(r.r,1)}<b>${esc(r.n)}</b><span class="tagpill">${esc(r.u)}</span>${r.v?`<span class="ver">${CHECK}Verified</span>`:''}${r.pending?'<span class="tagpill">Pending review, visible only to you</span>':`<span class="mute">${r.days} days ago</span>`}</div><p>${esc(r.t)}</p></article>`).join(''):
      `<div class="empty" style="padding:32px 0;text-align:left"><p style="margin:0 0 14px">No reviews match those filters.</p><button class="btn ghost" type="button" id="rreset">Start fresh</button></div>`;
     const rs=$('#rreset'); if(rs) rs.addEventListener('click',()=>{ f.r=f.u='all'; $$('#rf .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.v==='all')); showRevs(); });
   }
   $('#rf').addEventListener('click',e=>{ const c=e.target.closest('.chip'); if(!c) return; f[c.closest('.grp').dataset.g]=c.dataset.v; $$('.chip',c.parentElement).forEach(x=>x.setAttribute('aria-pressed',x===c)); showRevs(); });
   showRevs();
+
+  /* write a review: POST to AF endpoint "review"; stays local and pending until a person approves it */
+  const rform=$('#rform'), rstat=$('#rstat'), rbtn=$('button',rform);
+  rform.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!rform.reportValidity()) return;
+    rbtn.disabled=true; rstat.className='fstat'; rstat.textContent='Sending…';
+    try{ await AF.submitForm('review',rform,{tool:t.id}); }
+    catch(err){ rbtn.disabled=false; rstat.className='fstat err'; rstat.textContent=AF.failMsg(err); return; }
+    const d=new FormData(rform);
+    addMine({r:+d.get('rating'),u:d.get('reviewer'),n:d.get('name').trim()||'Anonymous',t:d.get('text').trim()});
+    rform.reset(); rbtn.disabled=false; rstat.textContent=''; $('#wr').open=false;
+    showRevs(); toast('Thanks. We read every review before it goes live.');
+  });
 
   /* carousel */
   const rail=$('#rail'), cl=$('#cl'), cr=$('#cr');
@@ -367,7 +404,7 @@ function render(){
 
   observe();
 }
-})();
+});
 </script>
 </body>
 </html>
