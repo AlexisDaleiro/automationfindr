@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Browse automation tools | AutomationFindr</title>
+<meta name="description" content="Filter automation tools by pricing, rating, platform and integrations.">
+<meta name="theme-color" content="#FAFAF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ==========================================================================
+   CATEGORY PAGE
+   ========================================================================== */
+.chd{display:flex;align-items:flex-start;gap:20px;margin-bottom:clamp(20px,3vw,32px)}
+.chd .big{--c:var(--teal);flex:none;width:68px;height:68px;border-radius:20px;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 10%,#fff);border:1px solid color-mix(in srgb,var(--c) 24%,var(--line))}
+.chd .big svg{width:36px;height:36px}
+.chd h1{font-size:clamp(2.4rem,5.6vw,4.25rem);line-height:1;letter-spacing:-.03em}
+.chd p{margin-top:10px;color:var(--mute);font-size:1.0625rem;max-width:44ch}
+.cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--gutter)*-1);padding:2px var(--gutter) 6px}
+.cats::-webkit-scrollbar{display:none}
+.cats .chip{flex:none;height:36px;font-size:.8125rem}
+.cats .chip[aria-current=page]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.sbar{position:sticky;top:64px;z-index:30;padding:12px 0;margin-top:14px;background:linear-gradient(var(--bg) 70%,transparent)}
+.sfld{display:flex;align-items:center;gap:12px;height:54px;padding:0 10px 0 18px;background:#fff;border:1px solid var(--line-strong);border-radius:16px;box-shadow:var(--inset-hi),0 1px 2px rgba(26,26,26,.05),0 8px 20px -8px rgba(26,26,26,.12);transition:border-color var(--duration-normal),box-shadow var(--duration-normal)}
+.sfld:focus-within{border-color:var(--teal);box-shadow:var(--inset-hi),0 0 0 4px rgba(13,148,136,.14),0 8px 20px -8px rgba(26,26,26,.12)}
+.sfld>svg{width:20px;height:20px;color:var(--mute);flex:none}
+.sfld input{flex:1;min-width:0;height:100%;border:0;outline:0;background:transparent;font-size:1rem;font-weight:500;-webkit-appearance:none;appearance:none}
+.sfld input::-webkit-search-cancel-button{display:none}
+.sfld kbd{font:500 .75rem/1 var(--mono);height:26px;min-width:26px;display:grid;place-items:center;padding:0 7px;border-radius:7px;border:1px solid var(--line-strong);background:var(--sand);color:var(--mute)}
+.sfld .x{display:none;width:34px;height:34px;border-radius:9px;color:var(--mute);place-items:center}
+.sfld .x:hover{background:var(--sand);color:var(--ink)}
+.sfld.has .x{display:grid}.sfld.has kbd{display:none}
+
+.layout{display:grid;grid-template-columns:268px minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start;margin-top:12px}
+.filters{position:sticky;top:140px;display:flex;flex-direction:column;gap:26px;max-height:calc(100vh - 160px);overflow-y:auto;padding-right:6px;scrollbar-width:thin}
+.fhd{display:flex;align-items:center;justify-content:space-between}
+.fhd h2{font:600 1rem var(--sans);letter-spacing:-.01em}
+.linkbtn{font-size:.875rem;font-weight:600;color:var(--teal);border-radius:6px;padding:4px 2px}
+.linkbtn:hover{text-decoration:underline;text-underline-offset:3px}
+.linkbtn[disabled]{opacity:.35;pointer-events:none}
+.fgrp h3{font:600 .875rem var(--sans);margin-bottom:10px}
+.opt{display:flex;align-items:center;gap:10px;min-height:36px;font-size:.9375rem;cursor:pointer;position:relative}
+.opt input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opt .bx{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line-strong);background:#fff;display:grid;place-items:center;transition:background var(--duration-fast),border-color var(--duration-fast)}
+.opt input[type=radio]~.bx{border-radius:50%}
+.opt .bx svg{width:12px;height:12px;color:#fff;opacity:0;transform:scale(.6);transition:all var(--duration-fast) var(--ease-out-expo)}
+.opt input:checked~.bx{background:var(--teal);border-color:var(--teal)}
+.opt input[type=radio]:checked~.bx svg{display:none}
+.opt input[type=radio]:checked~.bx::after{content:"";width:6px;height:6px;border-radius:50%;background:#fff}
+.opt input:checked~.bx svg{opacity:1;transform:none}
+.opt input:focus-visible~.bx{outline:2px solid var(--teal);outline-offset:2px}
+.opt .n{margin-left:auto;font:400 .75rem var(--mono);color:var(--mute)}
+.ints2{display:flex;flex-wrap:wrap;gap:6px}
+.ints2 .chip{height:32px;font-size:.8125rem;padding:0 12px}
+.mfb,.fclose,.scrim{display:none}
+
+.rtop{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.rtop .cnt{font-size:.9375rem;color:var(--mute);margin-right:auto}
+.rtop .cnt b{color:var(--ink);font-weight:600}
+.sel{position:relative}
+.sel select{appearance:none;-webkit-appearance:none;height:40px;padding:0 36px 0 14px;border-radius:12px;border:1px solid var(--line-strong);background:#fff;font-size:.875rem;font-weight:500;cursor:pointer;box-shadow:var(--inset-hi)}
+.sel::after{content:"";position:absolute;right:14px;top:50%;width:7px;height:7px;border-right:1.5px solid var(--mute);border-bottom:1.5px solid var(--mute);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.vt{display:inline-flex;padding:3px;border-radius:12px;background:var(--sand);border:1px solid var(--line)}
+.vt button{width:38px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--mute);transition:background var(--duration-fast),color var(--duration-fast)}
+.vt button svg{width:18px;height:18px}
+.vt button[aria-pressed=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.active-f{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.active-f .chip{height:30px;font-size:.8125rem;padding:0 8px 0 12px;gap:8px}
+.active-f .chip svg{width:12px;height:12px;color:var(--mute)}
+
+.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.res.list{grid-template-columns:1fr;gap:12px}
+.res.list .tcard{flex-direction:row;align-items:center;gap:20px;padding:16px 22px}
+.res.list .tcard-h{flex:none;width:240px}
+.res.list .tcard p{flex:1}
+.res.list .tcard-f{margin-top:0;flex:none;width:300px;justify-content:flex-end}
+.res.list .tcard-f .go{margin-left:4px}
+.more{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:32px}
+.more small{color:var(--mute);font-size:.875rem}
+.enterc{animation:cardIn .4s var(--ease-out-expo) backwards}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.97)}}
+.none{padding:56px 20px;text-align:left;border:1.5px dashed var(--line-strong);border-radius:24px}
+.none h2{font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1;max-width:20em;margin-bottom:12px}
+.none p{color:var(--mute);margin-bottom:20px}
+.none .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+
+@media (max-width:1100px){.res{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:960px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .mfb{display:inline-flex}
+  .filters{position:fixed;inset:auto 0 0 0;top:auto;z-index:95;max-height:84vh;padding:22px var(--gutter) 28px;background:var(--bg);border-top:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:0 -24px 60px rgba(26,26,26,.2);transform:translateY(110%);visibility:hidden;transition:transform var(--duration-slow) var(--ease-out-expo),visibility 0s .5s}
+  .filters.open{transform:none;visibility:visible;transition-delay:0s}
+  .fclose{display:inline-flex}
+  .scrim{display:block;position:fixed;inset:0;z-index:94;background:rgba(26,26,26,.35);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity var(--duration-normal),visibility 0s .3s}
+  .scrim.on{opacity:1;visibility:visible;transition-delay:0s}
+  .res.list .tcard{flex-direction:column;align-items:stretch;gap:12px}
+  .res.list .tcard-h,.res.list .tcard-f{width:auto;justify-content:flex-start}
+}
+@media (max-width:640px){
+  .res{grid-template-columns:1fr}
+  .chd{flex-direction:column;gap:14px}
+  .sfld kbd{display:none}
+}
+</style>
+</head>
+<body data-page="category">
+<main id="main" class="page"><div class="wrap">
+  <header class="chd" id="chd"></header>
+  <nav class="cats" id="cats" aria-label="Categories"></nav>
+
+  <div class="sbar"><div class="sfld" id="sfld" role="search" aria-label="Search within results">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2L17 17"/></svg>
+    <input id="cq" type="search" aria-label="Search tools in this list" placeholder="Search within this list" autocomplete="off" spellcheck="false">
+    <button class="x" id="cx" type="button" aria-label="Clear search"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+    <kbd aria-hidden="true">/</kbd>
+  </div></div>
+
+  <div class="layout">
+    <aside class="filters" id="filters" aria-label="Filters">
+      <div class="fhd"><h2>Filters</h2><span><button class="linkbtn" id="reset" type="button">Start fresh</button><button class="linkbtn fclose" id="fclose" type="button" style="margin-left:14px">Done</button></span></div>
+      <div class="fgrp" id="f-price"><h3>Pricing</h3></div>
+      <div class="fgrp" id="f-rating"><h3>Rating</h3></div>
+      <div class="fgrp" id="f-plat"><h3>Platform</h3></div>
+      <div class="fgrp" id="f-int"><h3>Integrations</h3><div class="ints2" id="ints"></div></div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <section aria-label="Results">
+      <div class="rtop">
+        <button class="btn ghost mfb" id="mf" type="button" style="height:40px">Filters<span id="mfn"></span></button>
+        <p class="cnt" id="cnt" aria-live="polite"></p>
+        <div class="sel"><label class="sr" for="sort">Sort by</label><select id="sort">
+          <option value="pop">Most popular</option><option value="new">Newest</option><option value="rate">Best rated</option><option value="price">Price, low to high</option></select></div>
+        <div class="vt" role="group" aria-label="View">
+          <button type="button" id="vg" aria-pressed="true" aria-label="Grid view"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="5" height="5" rx="1.2"/><rect x="10.5" y="2.5" width="5" height="5" rx="1.2"/><rect x="2.5" y="10.5" width="5" height="5" rx="1.2"/><rect x="10.5" y="10.5" width="5" height="5" rx="1.2"/></svg></button>
+          <button type="button" id="vl" aria-pressed="false" aria-label="List view"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 4.5h12M3 9h12M3 13.5h12"/></svg></button>
+        </div>
+      </div>
+      <div class="active-f" id="af"></div>
+      <div class="res" id="res"></div>
+      <div class="more" id="more"></div>
+    </section>
+  </div>
+</div></main>
+
+<script src="shared.js"></script>
+<script>
+(()=>{
+'use strict';
+const {$,$$,esc,RM,CATS,T,card,rank,isFree,priceNum,platforms,catUrl,observe}=AF;
+const PAGE=6;
+const DESC={
+ workflow:'Connect apps and move data between them without writing a backend.',
+ ai:'Agents and LLM layers that do the clicking, reading and drafting for you.',
+ email:'Outreach, sequences and follow-ups at a volume nobody could type by hand.',
+ crm:'Customer records and pipeline that keep themselves moving.',
+ devops:'Build, ship and run software with fewer manual steps.',
+ data:'Move, model and sync data between warehouses and the tools your team uses.',
+ marketing:'Enrich leads, schedule posts and run campaigns on autopilot.',
+ finance:'Invoices, receipts and books that fill themselves in.',
+ hr:'Onboarding, payroll and access, triggered by people events.',
+ all:'Every tool in the directory. Narrow it down with the filters.'
+};
+const CHECK='<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>';
+const XS='<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7"/></svg>';
+
+const params=new URLSearchParams(location.search);
+let cat=CATS[params.get('c')]?params.get('c'):'all';
+const scope=()=>cat==='all'?T:T.filter(t=>t.cat===cat);
+const kind=t=>t.p==='Free'?'free':/^(Freemium|Free tier)/.test(t.p)?'freemium':'paid';
+
+/* filter state */
+const S={q:params.get('q')||'',price:new Set(),rating:0,plat:new Set(),ints:new Set(),sort:'pop',view:'grid',shown:PAGE};
+
+/* header and category switcher */
+function head(){
+  const v=CATS[cat], n=scope().length;
+  document.title=`${cat==='all'?'All tools':v.n} | AutomationFindr`;
+  $('#chd').innerHTML=`<div class="big" style="--c:${cat==='all'?'var(--teal)':v.c}" aria-hidden="true">${cat==='all'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>':v.i}</div>
+    <div><h1>${cat==='all'?'All tools':esc(v.n)}</h1><p>${DESC[cat]}</p></div>`;
+  $('#cats').innerHTML=[['all','All']].concat(Object.entries(CATS).map(([k,c])=>[k,c.n])).map(([k,n])=>`<a class="chip" href="${k==='all'?catUrl():catUrl(k)}" ${k===cat?'aria-current="page"':''}>${esc(n)}</a>`).join('');
+}
+
+/* filter controls */
+function opt(type,name,val,label,count,checked){
+  return `<label class="opt"><input type="${type}" name="${name}" value="${val}" ${checked?'checked':''}><span class="bx">${CHECK}</span><span>${label}</span><span class="n">${count}</span></label>`;
+}
+function controls(){
+  const sc=scope();
+  $('#f-price').innerHTML='<h3>Pricing</h3>'+[['free','Free'],['freemium','Freemium'],['paid','Paid']].map(([v,l])=>opt('checkbox','price',v,l,sc.filter(t=>kind(t)===v).length,S.price.has(v))).join('');
+  $('#f-rating').innerHTML='<h3>Rating</h3>'+[[0,'Any rating'],[4,'4 stars and up'],[3,'3 stars and up']].map(([v,l])=>opt('radio','rating',v,l,sc.filter(t=>t.r>=v).length,S.rating===v)).join('');
+  $('#f-plat').innerHTML='<h3>Platform</h3>'+['Web','Desktop','Mobile','API'].map(p=>opt('checkbox','plat',p,p,sc.filter(t=>platforms(t).includes(p)).length,S.plat.has(p))).join('');
+  const cnt={}; sc.forEach(t=>t.int.forEach(i=>cnt[i]=(cnt[i]||0)+1));
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,12).map(([n])=>n);
+  $('#ints').innerHTML=top.map(n=>`<button class="chip" type="button" data-int="${esc(n)}" aria-pressed="${S.ints.has(n)}">${esc(n)}</button>`).join('');
+}
+
+/* results */
+const matches=()=>{
+  let list=S.q.trim()?rank(S.q,scope()):[...scope()];
+  list=list.filter(t=>
+    (!S.price.size||S.price.has(kind(t)))&&
+    t.r>=S.rating&&
+    (!S.plat.size||[...S.plat].every(p=>platforms(t).includes(p)))&&
+    (!S.ints.size||[...S.ints].every(i=>t.int.includes(i))));
+  if(!S.q.trim()||S.sort!=='pop'){
+    const cmp={pop:(a,b)=>b.rv-a.rv,new:(a,b)=>a.a-b.a,rate:(a,b)=>b.r-a.r||b.rv-a.rv,price:(a,b)=>priceNum(a)-priceNum(b)||b.r-a.r}[S.sort];
+    list.sort(cmp);
+  }
+  return list;
+};
+const activeCount=()=>S.price.size+(S.rating?1:0)+S.plat.size+S.ints.size;
+
+const res=$('#res');
+function flipPositions(){ const m=new Map(); $$('.tcard',res).forEach(el=>m.set(el.dataset.id,el.getBoundingClientRect())); return m; }
+function paint(opts={}){
+  const before=opts.flip&&!RM?flipPositions():null;
+  const list=matches(), vis=list.slice(0,S.shown), prevIds=new Set($$('.tcard',res).map(e=>e.dataset.id));
+  res.classList.toggle('list',S.view==='list');
+  $('#cnt').innerHTML=`<b>${list.length}</b> ${list.length===1?'tool':'tools'}${activeCount()||S.q.trim()?' match':''}`;
+  $('#mfn').textContent=activeCount()?` (${activeCount()})`:'';
+  $('#reset').disabled=!activeCount()&&!S.q.trim();
+
+  /* removable chips for active filters */
+  const act=[...[...S.price].map(v=>['price',v,v[0].toUpperCase()+v.slice(1)]),...(S.rating?[['rating',S.rating,`${S.rating}+ stars`]]:[]),...[...S.plat].map(v=>['plat',v,v]),...[...S.ints].map(v=>['ints',v,v])];
+  $('#af').innerHTML=act.map(([k,v,l])=>`<button class="chip" type="button" data-rm="${k}" data-v="${esc(v)}" aria-label="Remove filter ${esc(l)}">${esc(l)}${XS}</button>`).join('');
+
+  if(!list.length){
+    res.innerHTML=`<div class="none" style="grid-column:1/-1"><h2>Nothing here yet. Try broader terms or browse by category.</h2><p>${activeCount()?'Your filters are narrowing this to zero.':'No tool matches that search.'}</p><button class="btn" type="button" id="none-reset">Start fresh</button><div class="row">${Object.entries(CATS).slice(0,5).map(([k,c])=>`<a class="chip" href="${catUrl(k)}">${esc(c.n)}</a>`).join('')}</div></div>`;
+    $('#more').innerHTML=''; return;
+  }
+  res.innerHTML=vis.map((t,i)=>card(t,i).replace(' rv"','"')).join('');
+  const left=list.length-vis.length;
+  $('#more').innerHTML=left>0?`<button class="btn ghost" type="button" id="loadmore">Load more</button><small>${left} more ${left===1?'tool':'tools'}</small>`:(list.length>PAGE?'<small>That is everything for now.</small>':'');
+
+  /* FLIP: cards that stay glide to their new spot, new ones fade in */
+  $$('.tcard',res).forEach((el,i)=>{
+    const old=before&&before.get(el.dataset.id);
+    if(old){
+      const n=el.getBoundingClientRect(), dx=old.left-n.left, dy=old.top-n.top;
+      if(dx||dy) el.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:'none'}],{duration:350,easing:'cubic-bezier(0.16,1,0.3,1)'});
+    }else if(!RM){
+      el.classList.add('enterc'); el.style.animationDelay=`${Math.min(i%PAGE,4)*60}ms`;
+    }
+  });
+}
+
+function sync(){
+  const p=new URLSearchParams(); if(cat!=='all') p.set('c',cat); if(S.q.trim()) p.set('q',S.q.trim());
+  history.replaceState(null,'',`category.html${p.toString()?'?'+p:''}`);
+}
+function update(opts){ S.shown=PAGE; paint({flip:true,...opts}); sync(); }
+
+/* events */
+$('#filters').addEventListener('change',e=>{
+  const i=e.target; if(i.name==='price'||i.name==='plat'){ const s=i.name==='price'?S.price:S.plat; i.checked?s.add(i.value):s.delete(i.value); }
+  else if(i.name==='rating') S.rating=+i.value;
+  update();
+});
+$('#ints').addEventListener('click',e=>{ const b=e.target.closest('[data-int]'); if(!b) return; const n=b.dataset.int; S.ints.has(n)?S.ints.delete(n):S.ints.add(n); b.setAttribute('aria-pressed',S.ints.has(n)); update(); });
+$('#af').addEventListener('click',e=>{ const b=e.target.closest('[data-rm]'); if(!b) return; const k=b.dataset.rm, v=b.dataset.v;
+  if(k==='price') S.price.delete(v); else if(k==='plat') S.plat.delete(v); else if(k==='ints') S.ints.delete(v); else S.rating=0; controls(); update(); });
+function reset(){ S.q=''; $('#cq').value=''; $('#sfld').classList.remove('has'); S.price.clear(); S.plat.clear(); S.ints.clear(); S.rating=0; controls(); update(); }
+$('#reset').addEventListener('click',reset);
+res.addEventListener('click',e=>{ if(e.target.closest('#none-reset')) reset(); });
+$('#more').addEventListener('click',e=>{ if(!e.target.closest('#loadmore')) return; const first=S.shown; S.shown+=PAGE; paint(); const fresh=$$('.tcard',res)[first]; if(fresh&&!RM) fresh.scrollIntoView({block:'center',behavior:'smooth'}); const f=$$('.tcard',res)[first]; if(f) f.focus({preventScroll:true}); });
+$('#sort').addEventListener('change',e=>{ S.sort=e.target.value; update(); });
+const setView=v=>{ S.view=v; $('#vg').setAttribute('aria-pressed',v==='grid'); $('#vl').setAttribute('aria-pressed',v==='list'); paint({flip:true}); };
+$('#vg').addEventListener('click',()=>setView('grid')); $('#vl').addEventListener('click',()=>setView('list'));
+
+const cq=$('#cq'), sfld=$('#sfld'); let qt;
+cq.value=S.q; sfld.classList.toggle('has',!!S.q);
+cq.addEventListener('input',()=>{ S.q=cq.value; sfld.classList.toggle('has',!!cq.value); clearTimeout(qt); qt=setTimeout(()=>update(),120); });
+$('#cx').addEventListener('click',()=>{ cq.value=''; S.q=''; sfld.classList.remove('has'); cq.focus(); update(); });
+cq.addEventListener('keydown',e=>{ if(e.key==='Escape'&&cq.value){ e.preventDefault(); $('#cx').click(); } });
+AF.searchHandler=()=>{ cq.focus(); cq.select(); };
+
+/* mobile filter sheet */
+const fl=$('#filters'), scrim=$('#scrim');
+function sheet(o){ fl.classList.toggle('open',o); scrim.classList.toggle('on',o); document.body.style.overflow=o?'hidden':''; if(o) $('#fclose').focus(); else $('#mf').focus({preventScroll:true}); }
+$('#mf').addEventListener('click',()=>sheet(true));
+$('#fclose').addEventListener('click',()=>sheet(false));
+scrim.addEventListener('click',()=>sheet(false));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&fl.classList.contains('open')) sheet(false); });
+
+head(); controls(); paint(); observe();
+})();
+</script>
+</body>
+</html>
